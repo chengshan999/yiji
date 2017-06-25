@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<form action="" target="_parent" method="post">
+<table>
+	<tr>
+		<td>地区</td>
+		<td><select name="pid" id="">
+			<foreach name="diqu" item="v">
+			<if condition="$yiyuan[pid] eq $v[id]">
+			<option value="{weimicms:$v.id}" selected="selected">{weimicms:$v.name}</option>
+			<else/>
+			<option value="{weimicms:$v.id}">{weimicms:$v.name}</option>
+			</if>
+			</foreach>
+		</select></td>
+	</tr>
+	<tr>
+		<td>名称：</td>
+		<td><input type="text" name="name" value="{weimicms:$yiyuan.name}" id="" /></td>
+	</tr>
+	<tr>
+		<td>地址：</td>
+		<td><input type="text" name="addr" value="{weimicms:$yiyuan.addr}" id="" /></td>
+	</tr>
+	<tr>
+		<td>电话：</td>
+		<td><input type="text" name="tel" value="{weimicms:$yiyuan.tel}" id="" /></td>
+	</tr>
+	<tr>
+		<td><input type="hidden" name="id" value="{weimicms:$yiyuan.id}" /></td>
+		<td><input type="submit" value="确定添加" /></td>
+	</tr>
+</table>
+</form>
+</body>
+</html>

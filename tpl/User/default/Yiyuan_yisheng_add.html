@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<form action="" target="_parent" method="post">
+<table>
+	<tr>
+		<td>所属医院</td>
+		<td><select name="yiyuan_id" id="">
+			<foreach name="diqu" item="v">
+				<optgroup label="{weimicms:$v.name}">
+				<foreach name="v[yiyuan]" item="val">
+				<option value="{weimicms:$val.id}">{weimicms:$val.name}</option>
+				</foreach>
+				</optgroup>
+			</foreach>
+		</select></td>
+	</tr>
+	<tr>
+		<td>姓名：</td>
+		<td><input type="text" name="xingming" id="" /></td>
+	</tr>
+	<tr>
+		<td>手机号</td>
+		<td><input type="text" name="tel" id="" /></td>
+	</tr>
+	<tr>
+		<td></td>
+		<td><input type="submit" value="确定添加" /></td>
+	</tr>
+</table>
+</form>
+</body>
+</html>

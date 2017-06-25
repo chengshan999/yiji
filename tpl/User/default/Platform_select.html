@@ -1,0 +1,38 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>详细信息</title>
+<style>
+.xinming_top{
+	position:absolute;
+	z-index:999;
+	top:6px;
+}
+</style>
+</head>
+<body>
+<div class="xinming_top">
+	个人交易明细&nbsp;:&nbsp;&nbsp;{weimicms::$datas['xingming']}
+</div>
+<form class="form" method="post" action="" target="_top" enctype="multipart/form-data">	 
+		<table border="0" cellspacing="0" cellpadding="0" width="100%" class="platform_table">
+			<tr>
+				<td>Openid</td>
+				<td>交易明细</td>
+				<td>订单金额</td>
+				<td>订单时间</td>
+			</tr>
+			<volist name="data" id="vo" >
+				<tr>
+					<td>{weimicms:$vo['openid']}</td>
+					<td>{weimicms:$vo['content']}</td>
+					<td>{weimicms:$vo['money']}</td>
+					<td>{weimicms::date('Y-m-d H:i:s',$vo['createtime'])}</td>
+				</tr>
+			</volist>
+			
+		</table>
+</form>
+</body>
+</html>

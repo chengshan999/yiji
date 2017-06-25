@@ -1,0 +1,153 @@
+<include file="Public:head"/>  
+<link rel="stylesheet" type="text/css" href="./tpl/User/default/common/css/tcal.css" />
+<script src="./tpl/User/default/common/js/tcal.js" type="text/javascript"></script>   
+        <div class="content">
+          <div class="cLineB">
+              <h4 class="left">新建活动 </h4>
+              <div class="clr"></div>
+          </div>
+          <div class="cLine">
+          
+            <div class="clr"></div>
+          </div>
+          <div class="msgWrap">
+          <form method="post"  action="{weimicms::U('Huodong/edit_post')}" id="info" >
+            <TABLE class="ListProduct" border="0" cellSpacing="0" cellPadding="0" width="100%">
+              <THEAD>
+                <TR>
+	                <th>活动名称</th>
+	                <td>
+	                <input type="text" name="name" value="{weimicms:$data['name']}" style="border:1px solid #d3d3d3"/>
+	                <input type="hidden" name="id" value="{weimicms:$data['id']}"/>
+	                </td>
+                </TR>
+                <TR>
+	                <th>开始时间</th>
+	                <td><!--<input type="text" name="sdate" value="{weimicms:$data['sdate']|date='Y/m/d',###}" class="tcal" style="border:1px solid #d3d3d3"/>-->
+	                	<input type="datetime-local" name="sdate" id="" value="{weimicms:$data['sdate']}" />
+	                </td>
+                </TR>
+                <TR>
+	                <th>结束时间</th>
+	                <td><input type="datetime-local" name="edate" id="" value="{weimicms:$data['edate']}" /></td>
+                </TR>
+                <TR>
+	                <th>是否开启</th>
+	                <td><input type="radio" value='1' name='flag' class="close_input" />关闭&nbsp;&nbsp;&nbsp;<input type="radio" value="2" name="flag" class="open_input" />开启</td>
+                </TR>
+                <TR>
+	                <th>中奖人号码1</th>
+	                <td>
+	                <input type="text" name="zhong_num" value="{weimicms:$data['zhong_num']}" style="border:1px solid #d3d3d3"/>
+	                </td>
+                </TR>
+                <TR>
+	                <th>所中奖项1</th>
+	                <td>
+	                	<select name="zhong_jx">
+	                		<foreach name="jiangxiang" item="v">
+	                		<option value="{weimicms:$v.id}" <?php if($v['id']==$data['zhong_jx']){echo selected;}?>>{weimicms:$v.praisecontent}</option>
+	                		</foreach>
+	                	</select>
+	                </td>
+                </TR>
+                <TR>
+	                <th>中奖人号码2</th>
+	                <td>
+	                <input type="text" name="zhong_numa" value="{weimicms:$data['zhong_numa']}" style="border:1px solid #d3d3d3"/>
+	                </td>
+                </TR>
+                <TR>
+	                <th>所中奖项2</th>
+	                <td>
+	                	<select name="zhong_jx">
+	                		<foreach name="jiangxiang" item="v">
+	                		<option value="{weimicms:$v.id}" <?php if($v['id']==$data['zhong_jxa']){echo selected;}?>>{weimicms:$v.praisecontent}</option>
+	                		</foreach>
+	                	</select>
+	                </td>
+                </TR>
+                <TR>
+	                <th>中奖人号码3</th>
+	                <td>
+	                <input type="text" name="zhong_numb" value="{weimicms:$data['zhong_numb']}" style="border:1px solid #d3d3d3"/>
+	                </td>
+                </TR>
+                <TR>
+	                <th>所中奖项3</th>
+	                <td>
+	                	<select name="zhong_jxb">
+	                		<foreach name="jiangxiang" item="v">
+	                		<option value="{weimicms:$v.id}" <?php if($v['id']==$data['zhong_jxb']){echo selected;}?>>{weimicms:$v.praisecontent}</option>
+	                		</foreach>
+	                	</select>
+	                </td>
+                </TR>
+                <TR>
+	                <th>中奖人号码4</th>
+	                <td>
+	                <input type="text" name="zhong_numc" value="{weimicms:$data['zhong_numc']}" style="border:1px solid #d3d3d3"/>
+	                </td>
+                </TR>
+                <TR>
+	                <th>所中奖项4</th>
+	                <td>
+	                	<select name="zhong_jxc">
+	                		<foreach name="jiangxiang" item="v">
+	                		<option value="{weimicms:$v.id}" <?php if($v['id']==$data['zhong_jxc']){echo selected;}?>>{weimicms:$v.praisecontent}</option>
+	                		</foreach>
+	                	</select>
+	                </td>
+                </TR>
+                <TR>
+	                <th>中奖人号码5</th>
+	                <td>
+	                <input type="text" name="zhong_numd" value="{weimicms:$data['zhong_numd']}" style="border:1px solid #d3d3d3"/>
+	                </td>
+                </TR>
+                <TR>
+	                <th>所中奖项5</th>
+	                <td>
+	                	<select name="zhong_jxd">
+	                		<foreach name="jiangxiang" item="v">
+	                		<option value="{weimicms:$v.id}" <?php if($v['id']==$data['zhong_jxd']){echo selected;}?>>{weimicms:$v.praisecontent}</option>
+	                		</foreach>
+	                	</select>
+	                </td>
+                </TR>
+                <TR>
+	                <th>中奖人号码6</th>
+	                <td>
+	                <input type="text" name="zhong_nume" value="{weimicms:$data['zhong_nume']}" style="border:1px solid #d3d3d3"/>
+	                </td>
+                </TR>
+                <TR>
+	                <th>所中奖项6</th>
+	                <td>
+	                	<select name="zhong_jxe">
+	                		<foreach name="jiangxiang" item="v">
+	                		<option value="{weimicms:$v.id}" <?php if($v['id']==$data['zhong_jxe']){echo selected;}?>>{weimicms:$v.praisecontent}</option>
+	                		</foreach>
+	                	</select>
+	                </td>
+                </TR>
+				<tr>
+					<td colspan="2" align="center"><input class="btnGrayS" type="submit" value="提交"/>&nbsp;&nbsp;&nbsp;<a class="btnGrayS" href="{weimicms::U('Huodong/index',array('token'=>$_GET['token'],'name'=>$_GET['name']))}">返回主页</a></td>
+				</tr>
+              </THEAD>
+            </TABLE>
+           </form>
+          </div>
+         </div>
+<include file="Public:footer"/>
+<script>
+	$(function(){
+		var input_v = "{weimicms:$data['flag']}";
+		if(input_v==1){
+			$(".close_input").attr("checked","ture");
+		}
+		if(input_v==2){
+			$(".open_input").attr("checked","ture");
+		}
+	})
+</script>

@@ -1,0 +1,60 @@
+<include file="Public:head"/>
+<div class="content" <if condition="session('isQcloud') eq true">style="float:center;"</if>>
+
+<div class="cLineB">
+  <h4>活动管理 <span class="FAQ">活动列表</span></h4>
+ </div>
+         <div class="cLineC" style="line-height: 32px;">
+ <a href="{weimicms::U('Map/huodong_add',array('name'=>'map'))}" class="btnGrayS vm bigbtn" >添加活动</a> 
+</div>
+ 
+ <div class="msgWrap form">
+
+<div class="bdrcontent">
+<div id="div_ptype">
+<table class="ListProduct" border="0" cellSpacing="0" cellPadding="0" width="100%">
+<thead>
+<tr>
+				   <th style=" width:60px;">活动标号</th>
+				   <th style=" width:60px;">活动名称</th>
+                   <TH style=" width:60px;">活动简介</TH>
+                   <TH style=" width:60px;">活动图片</TH>
+                   <TH style=" width:60px;">创建时间</TH>
+                    <th style=" width:60px;" class="norightborder">操作</th>
+</tr>
+</thead>
+<volist name="data" id="v">
+<tr>
+<td>{weimicms:$v.id}</td>
+<td>{weimicms:$v.name}</td>
+<td>{weimicms:$v.info}</td>
+<td><img src="{weimicms:$v.pic}" style="width:50px" alt="" /></td>
+<td>{weimicms:$v.createtime|date="Y-m-d H:i",###}</td>
+<td class="norightborder">
+	<a href="{weimicms::U('huodong_edit',array('id'=>$v['id'],'name'=>'map'))}">编辑</a>
+	<a href="javascript:drop_confirm('您确定要删除吗?', \'{weimicms::U('huodong_del',array('id'=>$v['id']))}\');">删除</a>
+</td>
+</tr>
+</volist>
+
+               
+  </table>
+</div>
+</div>
+<div class="footactions" style="padding-left:10px">
+  <div class="pages">{weimicms:$page}</div>
+</div>
+          </div>
+  
+        </div>
+   
+        <div class="clr"></div>
+      </div>
+    </div>
+  </div> 
+  <!--底部-->
+  	</div>
+
+<if condition="session('isQcloud') neq true">
+<include file="Public:footer"/>
+</if>

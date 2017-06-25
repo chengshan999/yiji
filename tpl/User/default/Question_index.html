@@ -1,0 +1,69 @@
+<include file="Public:head"/> 
+<link rel="stylesheet" type="text/css" href="{weimicms::RES}/css/cymain.css" />
+        <div class="content">
+<div class="cLineB">
+<h4 class="left">常见问题管理 </h4>
+<div class="searchbar right">
+<form method="post" action="">
+<input type="text" id="msgSearchInput" class="txt left" placeholder="输入关键词搜索" name="searchkey" value="">
+<input type="hidden" name="ac" value="hotels-list">
+<input type="hidden" name="id" value="9878">
+<input type="hidden" name="wxid" value="gh_423dwjkewad">
+<input type="submit" value="搜索" id="msgSearchBtn" href="" class="btnGrayS" title="搜索">
+</form>
+</div>
+<div class="clr"></div>
+</div>
+<!--tab start-->
+<div class="tab">
+<ul>
+<li class="current tabli" id="tab0">常见问题管理 </li>
+</ul>
+</div>
+<!--tab end-->
+<div class="cLine">
+<div class="pageNavigator left" style="margin-left:20px"> <a href="{weimicms::U('Question/fenlei_index',array('name'=>question))}" title="添加" class="btnGrayS vm bigbtn"><img src="{weimicms::RES}/images/product/add.png" width="16" class="vm">问题分类设置</a></div>
+<div class="pageNavigator left" style="margin-left:20px"> <a href="{weimicms::U('Question/add',array('name'=>question))}" title="添加" class="btnGrayS vm bigbtn"><img src="{weimicms::RES}/images/product/add.png" width="16" class="vm">问题添加</a></div>
+<div class="clr"></div>
+</div>
+<div class="msgWrap">
+<form method="post" action="" >
+<input name="delall" type="hidden" value="">
+<input name="wxid" type="hidden" value="">
+<table class="ListProduct" border="0" cellspacing="0" cellpadding="0" width="100%">
+<thead>
+<tr>
+<th width="60">编号</th>
+<th width="60">分类</th>
+<th width="180">问题</th>
+<th width="100">答案</th>
+<th width="200" class="norightborder">操作</th>
+</tr>
+</thead>
+<tbody>
+<tr></tr>
+<volist name="question" id="vo"> 
+<tr>
+<td>{weimicms:$vo.id}</td>
+<td>{weimicms:$vo.name}</td>
+<td>{weimicms:$vo.question}</td>
+<td>{weimicms:$vo.answer}</td>
+<td class="norightborder"><a href="{weimicms::U('Question/update',array('id'=>$vo['id'],'token'=>$token,'name'=>'question'))}">修改</a>   <a href="javascript:drop_confirm('您确定要删除吗?', '{weimicms::U('Question/delete',array('id'=>$vo['id'],'token'=>$token))}');">删除</a></td>
+</tr>
+</volist>
+</tbody>
+</table>
+<if condition="!empty($data)" >
+<input style="margin-left:5px" class="btnGrayS" type="submit" value="确认" />
+</if>
+</form>
+
+</div>
+<div class="cLine">
+<div class="pageNavigator right">
+<div class="pages">{weimicms:$page}</div>
+</div>
+<div class="clr"></div>
+</div>
+</div>
+<include file="Public:footer"/>

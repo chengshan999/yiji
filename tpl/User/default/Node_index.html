@@ -1,0 +1,37 @@
+<include file="Public:head"/> 
+<link rel="stylesheet" type="text/css" href="./tpl/User/default/common/css/cymain.css" />
+ <link rel="stylesheet" href="{weimicms::RES}/css/diymen/tipswindown.css" type="text/css" media="all" />
+<script type="text/javascript" src="{weimicms::RES}/css/diymen/tipswindown.js"></script> 
+<style>
+TABLE.ListProduct .select{
+	text-align:center;
+}
+TABLE.ListProduct THEAD TH{
+	text-align:center;
+}
+</style>
+<div class="content">
+<div class="msgWrap">
+<form method="post" action="" id="info">
+<input name="delall" type="hidden" value="">
+<input name="wxid" type="hidden" value="">
+<table class="ListProduct" border="0" cellspacing="0" cellpadding="0" width="100%">
+<thead>
+<tr>
+<th class="select">排序</th>
+<th width="40">ID</th>
+<th width="280">节点名称</th>
+<th width="80">类型</th>
+</tr>
+</thead>
+<tbody>
+{weimicms:$html_tree}
+</tbody>
+</table>
+</form>
+</div>
+<div class="cLine">
+<div class="clr"></div>
+</div>
+</div>
+<include file="Public:footer"/>

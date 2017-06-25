@@ -1,0 +1,134 @@
+<include file="Public:head"/>
+<link rel="stylesheet" type="text/css" href="{weimicms::RES}/css/cymain.css" />
+<div class="content">
+
+<div class="cLineB">
+  <h4>订单管理</h4>
+            <div style="margin:10px 0">
+          <div style="float:right;width:25%;text-align:right">
+          <form method="post" action="">
+<input type="text" id="msgSearchInput" class="px" placeholder="输入订单号搜索" name="keyword" value="{weimicms:$keyword}">
+<input type="submit" value="搜索" id="msgSearchBtn" href="" class="btnGrayS" title="搜索">
+</form>
+</div>
+<form method="post" action="{weimicms::U('User/Wechat_group/setGroup')}" id="info">
+          <div style="width:70%;float:left">按订单状态查看：<select  onchange="location.href='?s=/User/Dingdan/index/name/Dingdan/status/'+this.value"><option value="">全部</option><weimicmslist array="status" foreach="g"><option value="{weimicms:$g.id}"<?php if ($_GET['status']==$g['id']){echo ' selected';}?>>{weimicms:$g.name}</option></weimicmslist></select>
+          </div>
+<div style="clear:both"></div>
+</div>
+   <div class="ftip" style="margin:10px 0">在此显示用户购买产品的订单列表，方便管理员进行查询。</div> 
+ </div>
+   
+ <!--tab start-->
+<script src="/tpl/static/artDialog/jquery.artDialog.js?skin=default"></script>
+<script src="{weimicms::RES}/js/jquery-1.7.2.min.js"></script>
+<script src="{weimicms::RES}/js/thickbox-compressed.js" type="text/javascript"></script>
+<link href="{weimicms::RES}/css/thickbox.css" media="screen" rel="stylesheet" type="text/css" />
+
+<style>
+.platform_table td{text-align:center;height:40px;border-bottom:1px solid #E7E7E7;}
+
+</style>
+<!--tab end-->    
+
+    <div class="msgWrap bgfc">
+	  <form class="form" method="post" action="" target="_top" enctype="multipart/form-data">	 
+		<table border="0" cellspacing="0" cellpadding="0" width="100%" class="platform_table">
+			<tr>
+				<td>订单编号</td>
+				<td>电话</td>
+				<td>订单号</td>
+				<td>订单金额</td>
+				<td>订单生成时间</td>
+				<td>状态</td>
+				<td>线下支付审核</td>
+				<td>详细信息</td>
+				<td>发货操作</td>
+				<td>查看物流</td>
+			</tr>
+			<volist name="data_tixing" id="vo" key='n'>
+				<tr>
+					<td>{weimicms:$vo['id']}</td>
+					<td>{weimicms:$vo['tel']}</td>
+					<td>{weimicms:$vo['orderid']}</td>
+					<td>{weimicms:$vo['total_price']}(含运费) </td>
+					<td>{weimicms::date("Y-m-d H:i:s",$vo['createtime'])}</td>
+					<td>
+					<font color="blue">待发货(<span style="color:red;">催货</span>)</font>
+					</td>
+					<td></td>
+					<td><a href="index.php?g=User&m=Dingdan&a=select&id={weimicms:$vo['id']}"  class="thickbox" type="button" >查看</a></td>
+					<td><if condition="$vo['status'] neq 0"><a href="index.php?g=User&m=Dingdan&a=fahuo&id={weimicms:$vo['id']}"  class="thickbox" type="button"">发货</a></if></td>
+					<td><a href="index.php?g=User&m=Dingdan&a=query_wuliu&id={weimicms:$vo['id']}"  class="thickbox" type="button"">查看物流</a></td>
+				</tr>
+			</volist>
+			<volist name="data_wei_tixing" id="vo" key='n'>
+				<tr>
+					<td>{weimicms:$vo['id']}</td>
+					<td>{weimicms:$vo['tel']}</td>
+					<td>{weimicms:$vo['orderid']}</td>
+					<td>{weimicms:$vo['total_price']}(含运费) </td>
+					<td>{weimicms::date("Y-m-d H:i:s",$vo['createtime'])}</td>
+					<td>
+					<if condition="$vo['status'] eq 1"><font color="blue">待发货</font>
+					<elseif condition="($vo['status'] eq 0) AND ($vo[zhifu_type] eq '线下支付') AND ($vo[xianxia_status] eq 0)"/>线下支付(未支付)
+					<elseif condition="($vo['status'] eq 0) AND ($vo[zhifu_type] eq '线下支付') AND ($vo[xianxia_status] eq 1)"/>已上传支付凭证<a target="_blank" href="{weimicms:$vo[zhifu_pic]}">(查看)</a>
+					<elseif condition="$vo['status'] eq 0"/>未支付
+					<elseif condition="$vo['status'] eq 2"/>待收货
+					<elseif condition="$vo['status'] eq 3"/>待评价
+					<elseif condition="$vo['status'] eq 4"/>完成
+					</if>
+					</td>
+					<td>
+					<if condition="($vo['zhifu_type'] eq '线下支付') AND ($vo[status]  eq 0) AND ($vo[xianxia_status] eq 1)">
+					<select name="change_xianxiazhifu_status" id="{weimicms:$vo[id]}">
+					<option value="">审核中</option>
+					<option value="2">通过</option>
+					<option value="3">驳回</option>
+					</select>
+					<elseif condition="($vo['zhifu_type'] eq '线下支付')  AND ($vo[status]  eq 0) AND ($vo[xianxia_status] eq 2)"/>
+					已通过
+					<elseif condition="($vo['zhifu_type'] eq '线下支付')  AND ($vo[status]  eq 0) AND ($vo[xianxia_status] eq 3)"/>
+					已驳回
+					</if>
+					</td>
+					<td><a href="index.php?g=User&m=Dingdan&a=select&id={weimicms:$vo['id']}"  class="thickbox" type="button" >查看</a></td>
+					<td><if condition="$vo['status'] neq 0"><a href="index.php?g=User&m=Dingdan&a=fahuo&id={weimicms:$vo['id']}"  class="thickbox" type="button"">发货</a></if></td>
+					<td><a href="index.php?g=User&m=Dingdan&a=query_wuliu&id={weimicms:$vo['id']}"  class="thickbox" type="button"">查看物流</a></td>
+				</tr>
+			</volist>
+			<tr>
+				<td colspan="5"></td>
+			</tr>
+			<tr>
+				<td colspan="5"><div style="float:right;">{weimicms:$page}</div></td>
+			</tr>
+
+		</table>
+	</form>
+  </div> 
+ 
+  
+        </div>
+        
+<include file="Public:footer"/>
+<script>
+$("select[name=change_xianxiazhifu_status]").change(function(){
+	var id=$(this).attr('id');
+	var value=$(this).val();
+	if(confirm("请仔细核对，一旦更变将无法更改")){
+		$.ajax({
+			url:"{weimicms::U('Dingdan/change_xianxiazhifu_status')}",
+			data:{id:id,value:value},
+			type:"POST",
+			success:function(data){
+				alert(data);
+				location.reload();
+			}
+		})
+	}else{
+		return false;
+	}
+})
+	
+</script>

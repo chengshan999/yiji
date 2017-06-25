@@ -1,0 +1,177 @@
+<include file="Public:head"/> 
+<link rel="stylesheet" type="text/css" href="./tpl/User/default/common/css/cymain.css" />
+ <link rel="stylesheet" href="{weimicms::RES}/css/diymen/tipswindown.css" type="text/css" media="all" />
+ <link href="{weimicms::RES}/css/index_two.css" rel="stylesheet">
+<script type="text/javascript" src="{weimicms::RES}/css/diymen/tipswindown.js"></script>
+<script src="{weimicms::RES}/js/echarts.js"></script>
+<script src="{weimicms::RES}/js/index.js"></script>
+
+<style>
+.ListProduct .td_left{width:130px; text-align:right;color:#000;font-weight:800;border-left: 1px solid #EEE}
+
+.userinfo{font-size:16px;}
+.userinfo span{margin-right:20px;}
+.userinfo span i{text-decoration:underline }
+.span{
+	display: block;
+    padding-top: 10%;
+    padding-bottom: 5%;
+}
+
+</style> 
+<div class="content">
+<div class="cLine">
+<div><h1 style="font-size:20px;">系统信息</h1></div>
+<div class="clr"></div>
+</div>
+<div class="msgWrap">
+<p class="userinfo"><span>{weimicms:$userinfo.name}：<i>{weimicms:$Think.session.uname}</i></span>
+<span>本次登录时间：<i>{weimicms:$thisUser.lasttime|date="Y-m-d H:i:s",###}</i></span>
+<span>本次登录IP：<i>{weimicms:$thisUser.lastip}</i></span></p>
+<div class="row">
+    <div class="col-lg-4">
+        <div class="user user-infor">
+            <div class="head">
+            	<input type="hidden" id="week_money" value="{weimicms:$week_money}" />
+            	<input type="hidden" id="today_money" value="{weimicms:$today_money}" />
+            	<input type="hidden" id="seven_date" value="{weimicms:$seven_date}" />
+                <strong>管家统计</strong><span class="admin-icon icon"></span>
+            </div>
+            <div class="user-bj user-font">
+            	<span class="span">已认证</span>
+                <span class="font font-black user-font">{weimicms:$gj_r_count}</span>
+            </div>
+            <div class="user-value">
+                <span>已关注：{weimicms:$gj_gz} &nbsp;&nbsp;&nbsp;已注册：{weimicms:$gj_z_count}</span>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-4">
+        <div class="user user-infor">
+            <div class="head">
+                <strong> 住户统计</strong><span class="people-icon icon"></span>
+            </div>
+            <div class="user-bj user-font">
+            	<span class="span">已认证</span>
+                <span class="font font-black user-font">{weimicms:$zh_r_count}</span>
+            </div>
+            <div class="user-value">
+                <span>已关注：{weimicms:$zh_gz} &nbsp;&nbsp;&nbsp;已注册：{weimicms:$zh_z_count}</span>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-4" style="width:32%;">
+        <div class="user user-infor">
+            <div class="head">
+                <strong>订单统计</strong><span class="orders-icon"></span>
+            </div>
+            <div class="user-bj user-font">
+            	<span class="span">已完成</span>
+                <span class="font font-black user-font" >{weimicms:$dj_w_count}</span>
+            </div>
+            <div class="user-value">
+                <span>待确认：{weimicms:$dj_dc_count} &nbsp;&nbsp;&nbsp;处理中：{weimicms:$dj_cz_count}&nbsp;&nbsp;&nbsp;已评价：{weimicms:$dj_yp_count}</span>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-4 " >
+        <div class="user guanzhu" >
+            <strong>昨日关注住户:</strong><span class="font font-black">{weimicms:$gz_count}</span>
+        </div>
+        <div class="user guanzhu" >
+            <strong>今日注册住户:</strong><span class="font font-black">{weimicms:$zc_count}</span>
+        </div>
+    </div>
+    <div class="col-lg-8">
+        <div class="user user-today">
+            <div class="head">
+                <strong>今日订单金额</strong><span class="orders-money"></span>
+            </div>
+            <div>
+                <div id="canvas" style="width:100%; height:210px"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row" style="clear:both;">
+    <div class="col-lg-12">
+        <div class="user user-historic">
+            <div class="head">
+                <strong>历史订单金额</strong><span class="orders-money1"></span>
+            </div>
+            <div >
+                <div id="canvas-orders" style="width:100%; height:210px" ></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row" style="clear:both;">
+    <div class="col-lg-12">
+        <div class="user user-historic">
+            <div class="head">
+                <strong>待处理订单</strong><span class="orders-pic1"></span>
+            </div>
+            <if condition="$wait_order eq null"><p style="padding-top:30px;text-align: center;color: #a8a8a8;">暂无数据</p></if>
+			<foreach name="wait_order" item="v">
+			<span class="orders-span orders orders-loan2">
+                {weimicms:$v.big_type}
+           </span>
+           <span class="orders-span orders orders-loan2">
+           <foreach name="v.yuyue_type" item="vo">
+           
+                {weimicms:$vo.product_name}X{weimicms:$vo.num}<br/>
+           
+           </foreach>
+           </span>
+           <span class="orders-span orders orders-dis" style="text-align: justify">{weimicms:$v.orderid}</span>
+           <span class="orders-span orders orders-loan1">{weimicms:$v.total_price}元</span>
+           <span class="orders-span orders orders-loan1">{weimicms:$v.xingming}</span>
+           <span class="orders-span orders orders-loan2">{weimicms:$v.phone}</span>
+           <span class="orders-span orders orders-loan2">{weimicms:$v.yu_date}</span>
+           <span class="orders-span orders orders-loan1">{weimicms:$v.yu_time}</span>
+		   <span class="orders-span orders orders-loan2">{weimicms:$v.floor_num}号{weimicms:$v.room_num}室</span>
+		   <span class="orders-span orders orders-dis" style="text-align: justify">{weimicms:$v.description}</span>
+						<div style="clear: both"></div>
+			</foreach>
+        </div>
+    </div>
+</div>
+
+<div class="row" style="clear:both;">
+    <div class="col-lg-12">
+        <div class="user user-historic">
+            <div class="head">
+                <strong>最近交易完成订单</strong><span class="orders-pic"></span>
+            </div>
+            <if condition="$end_order eq null"><p style="padding-top:30px;text-align: center;color: #a8a8a8;">暂无数据</p></if>
+            <foreach name="end_order" item="v">
+			<span class="orders-span orders orders-loan2">
+                {weimicms:$v.big_type}
+           </span>
+           <span class="orders-span orders orders-loan2">
+           <foreach name="v.yuyue_type" item="vo">
+           
+                {weimicms:$vo.product_name}X{weimicms:$vo.num}<br/>
+           
+           </foreach>
+           </span>
+           <span class="orders-span orders orders-dis" style="text-align: justify">{weimicms:$v.orderid}</span>
+           <span class="orders-span orders orders-loan1">{weimicms:$v.total_price}元</span>
+           <span class="orders-span orders orders-loan1">{weimicms:$v.xingming}</span>
+           <span class="orders-span orders orders-loan2">{weimicms:$v.phone}</span>
+           <span class="orders-span orders orders-loan2">{weimicms:$v.yu_date}</span>
+           <span class="orders-span orders orders-loan1">{weimicms:$v.yu_time}</span>
+		   <span class="orders-span orders orders-loan2">{weimicms:$v.floor_num}号{weimicms:$v.room_num}室</span>
+		   <span class="orders-span orders orders-dis" style="text-align: justify">{weimicms:$v.description}</span>
+						<div style="clear: both"></div>
+			</foreach>
+            
+        </div>
+    </div>
+</div>
+</div>
+</div>
+<include file="Public:footer"/>

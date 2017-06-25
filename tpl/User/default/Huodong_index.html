@@ -1,0 +1,47 @@
+<include file="Public:head"/>  
+        <div class="content">
+          <div class="cLineB">
+              <h4 class="left">幸运大转盘活动 </h4>
+              <div class="clr"></div>
+          </div>
+          <div class="cLine">
+            <a class="btnGrayS" href="index.php?g=User&m=Huodong&a=add&token={weimicms:$_GET['token']}&name={weimicms:$_GET['name']}">新建活动</a>
+          </div>
+          <div class="msgWrap">
+            <TABLE class="ListProduct" border="0" cellSpacing="0" cellPadding="0" width="100%">
+              <THEAD>
+                <TR>
+                <th>活动名称</th>
+                <th>开始时间</th>
+                <th>结束时间</th>
+                <th>创建时间</th>
+                <th>状态</th>
+                <th>中奖人号码</th>
+                <th>所中奖项</th>
+                <th>选项</th>
+                </TR>
+              </THEAD>
+              <TBODY>
+                <TR></TR>
+                  <volist id="data" name="data">
+                <TR>
+                	<td>{weimicms:$data.name}</td>
+					<td>{weimicms:$data.sdate|date='Y-m-d H:i:s',###}</td>
+                	<td>{weimicms:$data.edate|date='Y-m-d H:i:s',###}</td>
+                	<td>{weimicms:$data.createtime|date='Y-m-d',###}</td>
+					<td><if condition="$data.flag eq 1">关闭<elseif condition="$data.flag eq 2"/>开启</if></td>
+					<td>{weimicms:$data.zhong_num}</td>
+					<td>{weimicms:$data.zhong_jx}</td>
+					<td><a class="btnGrayS" href="index.php?g=User&m=Huodong&a=edit&id={weimicms:$data.id}&token={weimicms:$_GET['token']}&name={weimicms:$_GET['name']}">修改</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a class="btnGrayS" href="" onclick="if(confirm('确认删除吗？')){parent.window.location='index.php?g=User&m=Huodong&a=delete_post&id={weimicms:$data.id}';return false;}">删除</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a class="btnGrayS" href="index.php?g=User&m=Lottery&a=index&id={weimicms:$data.id}&token={weimicms:$_GET['token']}&name={weimicms:$_GET['name']}">查看详情</a></td>
+                </TR>
+				</volist>
+              </TBODY>
+            </TABLE>
+          </div>
+            
+        </div>
+ 
+  <!--底部-->
+  	</div>
+<include file="Public:footer"/>
+ 

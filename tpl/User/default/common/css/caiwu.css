@@ -1,0 +1,12 @@
+.caiwu{
+	height:50px;
+}
+.caiwu a{
+	width:100px;
+	margin-left:30px;
+	font-size:18px;
+	border:1px solid #000;
+	padding:7px;
+	background-color:#997;
+	cursor:pointer;
+}

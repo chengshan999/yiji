@@ -1,0 +1,50 @@
+<include file="Public:head"/>
+<script src="/tpl/static/artDialog/jquery.artDialog.js?skin=default"></script>
+<script src="/tpl/static/artDialog/plugins/iframeTools.js"></script>
+<script src="{weimicms::RES}/js/date/WdatePicker.js"></script>
+ <form class="form" method="post"   action="index.php?g=User&m=Lottery&a=add_post"  target="_top" enctype="multipart/form-data" >
+        <div class="content">
+<!--活动开始-->
+<div class="cLineB">
+    <h4>添加奖项</h4>
+</div>
+
+<div class="msgWrap bgfc">
+<TABLE class="userinfoArea" style=" margin: 0;" border="0" cellSpacing="0" cellPadding="0" width="100%">
+<tbody>
+	<tr>
+		<th>奖项名</th>
+		<td><input type="text" name="praisecontent" style="border:1px solid black"/></td>
+	</tr>
+	<tr>
+		<th>剩余数量</th>
+		<td><input type="text" name="praisenumber" style="border:1px solid black"/></td>
+	</tr>
+	<tr>
+		<th>总数量</th>
+		<td><input type="text" name="praisename" style="border:1px solid black"/></td>
+	</tr>
+	<tr>
+		<th>概率</th>
+		<td><input type="text" name="chance" style="border:1px solid black"/></td>
+	</tr>
+	
+	<tr>
+		<td colspan="2"><input class="btnGrayS" type="submit" value="提交"/></td>
+	</tr>
+</tbody>
+
+</TABLE>
+</div>
+</div>
+</form>
+
+        <div class="clr"></div>
+      </div>
+    </div>
+  </div>
+
+<!--底部-->
+  	</div>
+
+<include file="Public:footer"/>

@@ -1,0 +1,251 @@
+<include file="Public:head"/>
+<script src="/tpl/static/artDialog/jquery.artDialog.js?skin=default"></script>
+<script src="/tpl/static/artDialog/plugins/iframeTools.js"></script>
+ <div class="content" <if condition="session('isQcloud') eq true">style="float:center;"</if>>
+          <div class="cLineB"><h4><if condition="$tip eq 1">添加幻灯片<else/>添加图片</if></h4><a href="javascript:history.go(-1);"  class="right btnGrayS vm" style="margin-top:-27px" >返回</a></div> 
+<div class="msgWrap">
+  <form class="form" method="post"   action="" enctype="multipart/form-data" >
+  <input type="hidden" name="tip" value="{weimicms:$tip}" />
+<TABLE class="userinfoArea" style=" margin:20px 0 0 0;" border="0" cellSpacing="0" cellPadding="0" width="100%">
+  <TBODY>
+  <TR>
+  <TH valign="top"><label for="keyword">活动名称 ：</label></TH>
+  <TD><input type="text" class="px" id="url" value="{weimicms:$data.name}" name="name" style="width:500px" > <br />
+                   </TD>
+  <TD>&nbsp;</TD>
+</TR>
+<TR>
+  <TH valign="top"><label for="keyword"><if condition="$tip eq 1">图片描述：<else/>活动描述：</if></label></TH>
+  <TD><input type="text" class="px" id="keyword" value="{weimicms:$data.info}" name="info" style="width:500px" ><br />
+                  30个字简短分类描述，可为空   </TD>
+  <TD>&nbsp;</TD>
+</TR>
+<TR>
+  <TH valign="top"><label for="keyword"><if condition="$tip eq 1">图片：<else/>图片：</if></label></TH>
+  <TD><input type="text" class="px" id="img" value="{weimicms:$data.pic}" name="pic" style="width:500px" >  <script src="/tpl/static/upyun.js?2013"></script><a href="###" onclick="chooseFile('img','<if condition="$tip eq 1">focus<else/>background</if>')" class="a_upload">选择</a> <a href="###" onclick="upyunPicUpload('img',<if condition="$tip eq 1">700,420<else/>640,1136</if>,'{weimicms:$token}')" class="a_upload">上传</a> <a href="###" onclick="viewImg('img')">预览</a> 建议图片(<if condition="$tip eq 1">宽640高450<else/>宽640高1136</if>)  </TD>
+  <TD>&nbsp;</TD>
+</TR>
+
+  
+  </TBODY>
+</TABLE>
+  </form>
+
+
+
+  </div> 
+<div id="l-map"></div>
+<div id="allmap" style="width:0%"></div>
+<button type="submit" id="tijiao" style="margin-left: 13%;"  name="button"  class="btnGreen left" >保存</button>
+        </div>
+        
+        <div class="clr"></div>
+      </div>
+    </div>
+  </div> 
+
+<!--底部-->
+  	</div>
+<if condition="session('isQcloud') neq true">
+<include file="Public:footer"/>
+</if>
+<script type="text/javascript">
+	// 百度地图API功能
+	var map = new BMap.Map("l-map");
+	var point = new BMap.Point(121.420495, 31.241983);
+	map.centerAndZoom(point, 15);
+	//map.addOverlay(marker);             // 将标注添加到地图中
+// 	marker.enableDragging();
+	//右击删除
+	var removeMarker = function(e,ee,marker){
+		console.log(marker);
+		var lt=marker.NA.lng;
+		var rt=marker.NA.lat;
+		$.ajax({
+			url:"__URL__/del_point",
+			data:{lt:lt,rt:rt,id:"{weimicms:$data.id}"},
+			type:"POST",
+			async:false,
+			success:function(data){
+				location.reload();
+			}
+		})
+		map.removeOverlay(marker);
+	}
+	
+	//创建已经标注的点
+	function addMarker(point,i){
+	  var marker = new BMap.Marker(point);
+	  map.addOverlay(marker);
+	  var label = new BMap.Label(i+1,{offset:new BMap.Size(3,0)});
+	  marker.setLabel(label);
+	  label.setStyle({
+	      color: "#fff",
+	      fontSize: "16px",
+	      backgroundColor: "0.05",
+	      border: "0",
+	      fontWeight: "bold"
+	  });
+	  marker.setLabel(label);
+		//创建右键删除菜单
+		var markerMenu=new BMap.ContextMenu();
+		markerMenu.addItem(new BMap.MenuItem('删除',removeMarker.bind(marker)));
+		marker.addContextMenu(markerMenu);
+	}
+	var point_number="{weimicms::count($data[point])}";
+	var slist = "<?php echo urlencode(json_encode($data['point']));?>";
+	  var list = eval(decodeURIComponent(slist));
+	for (var i = 0; i < point_number; i ++) {
+		var point = new BMap.Point(list[i]['lt'],list[i]['rt']);
+		addMarker(point,i);
+	}
+	
+	
+	//控件
+	var navigationControl = new BMap.NavigationControl({
+    // 靠左上角位置
+    anchor: BMAP_ANCHOR_TOP_LEFT,
+    // LARGE类型
+    type: BMAP_NAVIGATION_CONTROL_LARGE,
+    // 启用显示定位
+    enableGeolocation: true
+  });
+  map.addControl(navigationControl);
+  // 添加定位控件
+  var geolocationControl = new BMap.GeolocationControl();
+  geolocationControl.addEventListener("locationSuccess", function(e){
+    // 定位成功事件
+    var address = '';
+    address += e.addressComponent.province;
+    address += e.addressComponent.city;
+    address += e.addressComponent.district;
+    address += e.addressComponent.street;
+    address += e.addressComponent.streetNumber;
+    alert("当前定位地址为：" + address);
+  });
+  geolocationControl.addEventListener("locationError",function(e){
+    // 定位失败事件
+    alert(e.message);
+  });
+  map.addControl(geolocationControl);
+
+	//定位到本地
+	function myFun(result){
+		var cityName = result.name;
+		map.setCenter(cityName);
+	}
+	var myCity = new BMap.LocalCity();
+	myCity.get(myFun);
+	var menu = new BMap.ContextMenu();
+	var txtMenuItem = [
+		{
+			text:'创建标记点',
+			callback:function(a){
+				var num;
+				$.ajax({
+					url:"__URL__/save_point",
+					data:{lt:a.lng,rt:a.lat,id:"{weimicms:$data.id}"},
+					type:"POST",
+					async:false,
+					success:function(data){
+						num=data;
+					}
+				})
+				var point = new BMap.Point(a.lng,a.lat);
+			  	var marker = new BMap.Marker(point);
+				map.addOverlay(marker);
+				var label = new BMap.Label(num,{offset:new BMap.Size(3,0)});
+				label.setStyle({
+				      color: "#fff",
+				      fontSize: "16px",
+				      backgroundColor: "0.05",
+				      border: "0",
+				      fontWeight: "bold"
+				  });
+				marker.setLabel(label);
+				//创建右键菜单
+				var markerMenu=new BMap.ContextMenu();
+				markerMenu.addItem(new BMap.MenuItem('删除',removeMarker.bind(marker)));
+				marker.addContextMenu(markerMenu);
+				
+			}
+		}
+		
+	];
+	for(var i=0; i < txtMenuItem.length; i++){
+		menu.addItem(new BMap.MenuItem(txtMenuItem[i].text,txtMenuItem[i].callback,100));
+	}
+	map.addContextMenu(menu);
+
+	
+</script>
+<script>
+function time(val)
+{
+	var point_number="{weimicms::count($data[point])}";
+	var map_test = new BMap.Map("allmap");
+	var point = new BMap.Point(121.420495, 31.241983);
+	map_test.centerAndZoom(point, 15);
+    for(var i = val;i<point_number-1;i++)
+    {
+		var chartData=new Array();
+    	$.ajax({
+    		url:"__URL__/get_point",
+    		data:{id:"{weimicms:$data.id}",num:i},
+    		type:"POST",
+    		async:false,
+    		dataType:"json",
+    		success:function(point){
+    			var p1 = new BMap.Point(point[0]['lt'],point[0]['rt']);
+    			var p2 = new BMap.Point(point[1]['lt'],point[1]['rt']);
+    			var walking = new BMap.WalkingRoute(map_test, {
+    				renderOptions:{map: map_test, autoViewport: true},
+    			});
+    			walking.search(p1, p2);
+    			walking.setSearchCompleteCallback(function (rs) {
+    			    var pts = walking.getResults().getPlan(0).getRoute(0).getPath();
+    			    
+    			    for (var j = 0; j < pts.length; j++) {
+    			        chartData.push(pts[j].lat+ ','+pts[j].lng);
+    			    }
+    			    console.log(chartData);
+    			    $.ajax({
+    			    	url:"__URL__/save_point_arr",
+			    		traditional:true,
+			    		data:{id:"{weimicms:$data.id}",num:i,point_arr:JSON.stringify(chartData)},
+			    		type:"POST",
+			    		async:false,
+			    		success:function(data){
+			    		}
+    			    })	
+    			});
+    			
+    		}
+    	})
+    	
+        window.setTimeout("time("+ ++i +")",1000)
+        break;
+    }
+    
+}
+function tijiao(){
+	$("form").submit();
+}
+$("#tijiao").click(function(){
+	$.ajax({
+		url:"__URL__/del_point_detail",
+    		data:{id:"{weimicms:$data.id}"},
+    		type:"POST",
+    		async:false,
+    		success:function(point){
+    			time(0);
+    			$("#tijiao").text("保存中，请稍等...");
+    			var point_number="{weimicms::count($data[point])}";
+    			var time_num=point_number+'900';
+    			setTimeout("tijiao()", time_num);
+    		}
+	})
+	
+	
+})
+</script>

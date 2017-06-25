@@ -1,0 +1,55 @@
+<include file="Public:head"/> 
+<link rel="stylesheet" type="text/css" href="./tpl/User/default/common/css/cymain.css" />
+ <link rel="stylesheet" href="{weimicms::RES}/css/diymen/tipswindown.css" type="text/css" media="all" />
+<script type="text/javascript" src="{weimicms::RES}/css/diymen/tipswindown.js"></script> 
+
+<script type="text/javascript">
+ $(document).ready(function() {
+	
+	$("#iframe1").click(function(){
+		tipsWindown("添加账户","iframe:{weimicms::U('Guanliyuan/add',array('token=>$token'))}","300","130","true","","true","leotheme");
+	});
+ });
+ </script>  
+<div class="content">
+<!--tab end-->
+<div class="cLine">
+<div class="pageNavigator left"> <a href="javascript:;" title="添加" id="iframe1" class="btnGrayS vm bigbtn"><img src="{weimicms::RES}/images/product/add.png" width="16" class="vm">添加账户</a></div>
+<div class="clr"></div>
+</div>
+<div class="msgWrap">
+<form method="post" action="" id="info">
+<table class="ListProduct" border="0" cellspacing="0" cellpadding="0" width="100%">
+<thead>
+<tr>
+<th width="40">编号</th>
+<th width="50">管理员头像</th>
+<th width="50">管理员昵称</th>
+<th width="50">管理员姓名</th>
+<th width="50">管理员电话</th>
+<th width="50">操作</th>
+</tr>
+</thead>
+<tbody>
+<volist name="data" id="vo" empty="暂时没有管理员">
+	<tr>
+		<td>{weimicms:$key+1}</td>
+		<td><img src="{weimicms:$vo.headimgurl}" style="width:50px" alt="" /></td>
+		<td>{weimicms:$vo.nickname}</td>
+		<td>{weimicms:$vo.xingming}</td>
+		<td>{weimicms:$vo.tel}</td>
+		<td><a href="{weimicms::U('delete',array('id'=>$vo[id]))}" >删除</a></td>
+	</tr>
+</volist>
+</tbody>
+</table>
+</form>
+</div>
+<div class="cLine">
+<div class="pageNavigator right">
+<div class="pages">{weimicms:$page}</div>
+</div>
+<div class="clr"></div>
+</div>
+</div>
+<include file="Public:footer"/>

@@ -1,0 +1,71 @@
+<include file="Public:head"/> 
+<link rel="stylesheet" type="text/css" href="{weimicms::RES}/css/cymain.css" />
+ <link rel="stylesheet" href="{weimicms::RES}/css/diymen/tipswindown.css" type="text/css" media="all" />
+<script type="text/javascript" src="{weimicms::RES}/css/diymen/tipswindown.js"></script> 
+<script type="text/javascript">
+ $(document).ready(function() {
+	
+	$("#iframe1").click(function(){
+		tipsWindown("问题分类添加","iframe:{weimicms::U('Question/fenlei_add',array('token=>$token'))}","400","130","true","","true","leotheme");
+	});
+	$(".iframe2").click(function(){
+		var id=$(this).parents("tr").find("td:first").text();
+		tipsWindown("修改问题分类","iframe:index.php?g=User&m=Question&a=type_edit&token={weimicms:$token}&id="+id,"400","130","true","","true","leotheme");
+	});
+ });
+ </script>
+        <div class="content">
+<div class="cLineB">
+<h4 class="left">问题分类管理 </h4>
+<a href="{weimicms::U('Question/index',array('name'=>'question','token'=>$token,id=>$id))}"  class="right  btnGreen" style="margin-top:0px;">返回</a> 
+
+<div class="clr"></div>
+</div>
+<!--tab start-->
+<div class="tab">
+<ul>
+<li class="current tabli" id="tab0">常见问题管理 </li>
+</ul>
+</div>
+<!--tab end-->
+<div class="cLine">
+<div class="pageNavigator left" style="margin-left:20px"> <a href="javascript:;" title="添加" id="iframe1" class="btnGrayS vm bigbtn"><img src="{weimicms::RES}/images/product/add.png" width="16" class="vm">问题分类添加</a></div>
+<div class="clr"></div>
+</div>
+<div class="msgWrap">
+<form method="post" action="" >
+<input name="delall" type="hidden" value="">
+<input name="wxid" type="hidden" value="">
+<table class="ListProduct" border="0" cellspacing="0" cellpadding="0" width="100%">
+<thead>
+<tr>
+<th width="60">编号</th>
+<th width="200">分类名称</th>
+<th width="200" class="norightborder">操作</th>
+</tr>
+</thead>
+<tbody>
+<tr></tr>
+<volist name="fenlei" id="vo"> 
+<tr>
+<td>{weimicms:$vo.id}</td>
+<td>{weimicms:$vo.name}</td>
+<td class="norightborder"><a href="javascript:;" title="修改"  class="iframe2" >修改</a>   <a href="javascript:drop_confirm('您确定要删除吗?', '{weimicms::U('Question/type_delete',array('id'=>$vo['id'],'token'=>$token))}');">删除</a></td>
+</tr>
+</volist>
+</tbody>
+</table>
+<if condition="!empty($data)" >
+<input style="margin-left:5px" class="btnGrayS" type="submit" value="确认" />
+</if>
+</form>
+
+</div>
+<div class="cLine">
+<div class="pageNavigator right">
+<div class="pages">{weimicms:$page}</div>
+</div>
+<div class="clr"></div>
+</div>
+</div>
+<include file="Public:footer"/>

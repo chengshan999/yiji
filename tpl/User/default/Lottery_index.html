@@ -1,0 +1,109 @@
+<include file="Public:head"/>  
+        <div class="content">
+          <div class="cLineB">
+              <h4 class="left">幸运大转盘活动信息 </h4>
+                  <div class="searchbar right">  <form method="get"  action="index.php"  >
+<!--                   <input type="text" id="msgSearchInput" class="txt left" placeholder="输入关键词搜索"  name="keyz" value=""> -->
+                  <input type="hidden" name="ac" value="activity-lottery-list"  />
+                  <input type="hidden" name="id" value="9878"  />
+                  <input type="hidden" name="wxid" value="gh_423dwjkewad"  />
+                 	              
+                  </form>
+                  </div>
+              <div class="clr"></div>
+          </div>
+          <div class="cLine">
+            <div class="pageNavigator left">
+<!-- 			<a href='/index.php?g=User&m=Lottery&a=add' title='新增幸运大转盘活动' class='btnGrayS vm bigbtn'><img src="{weimicms::RES}/images/img/activity-lottery.png" class="vm" />新增幸运大转盘活动</a> -->
+              
+            </div>
+          
+            <div class="clr"></div>
+          </div>
+          <div class="msgWrap">
+          <form method="post"  action="" id="info" >
+          <input name="delall"  type="hidden" value="" />
+           <input name="wxid"  type="hidden" value="" />
+            <TABLE class="ListProduct" border="0" cellSpacing="0" cellPadding="0" width="100%">
+              <THEAD>
+                <TR>
+                <th>奖项名称</th>
+                <th>奖项概率</th>
+                <th>剩余数量</th>
+                <th>总数量</th>
+                <th>编辑</th>
+                </TR>
+              </THEAD>
+              <TBODY>
+                <TR></TR>
+                  <volist id="list" name="list">
+                <TR>
+                	<td>{weimicms:$list.praisecontent}</td>
+					<td>{weimicms:$list.chance}</td>
+                	<td>{weimicms:$list.praisenumber}</td>
+                	<td>{weimicms:$list.praisename}</td>
+					<td><a href="index.php?g=User&m=Lottery&a=edit&id={weimicms:$list.id}&name={weimicms:$_GET['name']}">修改</a>
+					|<a href="" onclick="if(confirm('确认删除吗？')){parent.window.location='index.php?g=User&m=Lottery&a=delete&id={weimicms:$list.id}';return false;}">删除</a></td>
+                </TR>
+				</volist>
+                <tr>
+                	<th colspan="4"><a class="btnGrayS" href="index.php?g=User&m=Lottery&a=add&id={weimicms:$_GET['id']}&name={weimicms:$_GET['name']}">新增奖项+</a>&nbsp;&nbsp;<a class="btnGrayS" href="index.php?g=User&m=Lottery&a=record&id={weimicms:$list.huodong_id}&name={weimicms:$_GET['name']}">获奖记录</a></th>
+                </tr>
+              </TBODY>
+            </TABLE>
+           </form>
+           <script>
+   function checkvotethis() {
+var aa=document.getElementsByName('del_id[]');
+var mnum = aa.length;
+j=0;
+for(i=0;i<mnum;i++){
+if(aa[i].checked){
+j++;
+}
+}
+if(j>0) {
+document.getElementById('info').submit();
+} else {
+alert('未选中任何文章或回复！')
+}
+}
+
+   </script>
+          </div>
+            
+ 
+          <div class="cLine">
+            <div class="pageNavigator right">
+                 <div class="pages"></div>
+              </div>
+            <div class="clr"></div>
+          </div>
+        </div>
+
+        <div class="clr"></div>
+      </div>
+    </div>
+  </div>
+  <script>
+
+function checkAll(form, name) {
+for(var i = 0; i < form.elements.length; i++) {
+var e = form.elements[i];
+if(e.name.match(name)) {
+e.checked = form.elements['chkall'].checked;
+}
+}
+}
+
+function changesort(tid,sortval){
+
+var image=new Image();   
+image.src='index.php?ac=app&op=sort&wxid=gh_423dwjkewad&tid='+tid+'&sort='+sortval+'&r='+Math.random(); 
+
+}
+  </script>
+  <!--底部-->
+  	</div>
+<include file="Public:footer"/>
+ 

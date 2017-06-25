@@ -1,0 +1,49 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>详细信息</title>
+</head>
+<body>
+<form class="form" method="post" action="" target="_top" enctype="multipart/form-data">	 
+		<table border="0" cellspacing="0" cellpadding="0" width="100%" class="platform_table">
+			<tr>
+				<td style="background:#eee;">收货人姓名:</td>
+				<td>{weimicms:$shouhuo['xingming']}</td>
+				<td style="background:#eee;">省:</td>
+				<td>{weimicms:$shouhuo['province']}</td>
+				<td style="background:#eee;">市:</td>
+				<td>{weimicms:$shouhuo['city']}</td>
+			</tr>
+			<tr>
+				<td style="background:#eee;">区/县:</td>
+				<td>{weimicms:$shouhuo['area']}</td>
+				<td style="background:#eee;">联系电话:</td>
+				<td>{weimicms:$shouhuo['tel']}</td>
+				<td style="background:#eee;">收货地址:</td>
+				<td>{weimicms:$shouhuo['addr']}</td>
+			</tr>
+			
+			<tr style="background:#aaa;">
+				<td>图片</td>
+				<td>产品名称</td>
+				<td>数量</td>
+				<td>属性</td>
+				<td>单价</td>
+				<td>运费</td>
+			</tr>
+			<foreach name="data" item="v">
+			<tr>
+				<td><img src="{weimicms:$v.pic}" style="width:35px;" alt="" /></td>
+				<td>{weimicms:$v.productName} <if condition="$v[is_kuajing] eq 1"><span style="color:red;">(跨境产品)</span></if></td>
+				<td>{weimicms:$v.number}</td>
+				<td>{weimicms:$v.color} &nbsp;{weimicms:$v.guige}</td>
+				<td>{weimicms:$v.price}</td>
+				<td>{weimicms:$v.kuaidi_price}.00</td>
+			</tr>
+			</foreach>
+		</table>
+		
+</form>
+</body>
+</html>

@@ -1,0 +1,102 @@
+<include file="Public:head"/> 
+<link rel="stylesheet" type="text/css" href="{weimicms::RES}/css/cymain.css" />
+ <link rel="stylesheet" href="{weimicms::RES}/css/diymen/tipswindown.css" type="text/css" media="all" />
+<script type="text/javascript" src="{weimicms::RES}/css/diymen/tipswindown.js"></script> 
+
+<script type="text/javascript">
+ $(document).ready(function() {
+	
+	$("#iframe1").click(function(){
+		tipsWindown("添加产品","iframe:{weimicms::U('Blproduct/point_add',array('token=>$token'))}","380","350","true","","true","leotheme");
+	});
+	$(".iframe2").click(function(){
+		var id=$(this).parents("tr").find("td:first").text();
+		tipsWindown("修改产品","iframe:index.php?g=User&m=Blproduct&a=point_edit&token={weimicms:$token}&id="+id,"380","380","true","","true","leotheme");
+	});
+ });
+ </script>  
+        <div class="content">
+<div class="cLineB">
+<h4 class="left">积分商城 </h4>
+<div class="searchbar right">
+<form method="post" action="">
+<input type="text" id="msgSearchInput" class="txt left" placeholder="输入关键词搜索" name="searchkey" value="">
+<input type="hidden" name="ac" value="hotels-list">
+<input type="hidden" name="id" value="9878">
+<input type="hidden" name="wxid" value="gh_423dwjkewad">
+<input type="submit" value="搜索" id="msgSearchBtn" href="" class="btnGrayS" title="搜索">
+</form>
+</div>
+<div class="clr"></div>
+</div>
+<!--tab start-->
+<div class="tab">
+<ul>
+<li class="current tabli" id="tab0">商品管理</li>
+</ul>
+</div>
+<!--tab end-->
+<div class="cLine">
+<div class="pageNavigator left" style="margin-left:20px"> <a href="javascript:void(0);" id="iframe1" title="添加" class="btnGrayS vm bigbtn"><img src="{weimicms::RES}/images/product/add.png" width="16" class="vm">添加商品</a></div>
+<div class="clr"></div>
+</div>
+<div class="msgWrap">
+<form method="post" action="" >
+<input name="delall" type="hidden" value="">
+<input name="wxid" type="hidden" value="">
+<table class="ListProduct" border="0" cellspacing="0" cellpadding="0" width="100%">
+<thead>
+<tr>
+<th width="60">序号</th>
+<th width="180">商品名称</th>
+<th width="100">图片</th>
+<th width="100">所需积分</th>
+<th width="100">库存</th>
+<th width="200" class="norightborder">操作</th>
+</tr>
+</thead>
+<tbody>
+<tr></tr>
+<volist name="data" id="vo"> 
+<tr>
+<td>{weimicms:$vo.id}</td>
+<td>{weimicms:$vo.productName}</td>
+<td><img src="{weimicms:$vo.pic}" style="width:50px;" alt="" /></td>
+<td>{weimicms:$vo.rongyu}</td>
+<td>{weimicms:$vo.kucun}</td>
+<td class="norightborder"><a href="javascript:void(0);" class="iframe2">修改</a>   <a href="javascript:drop_confirm('您确定要删除吗?', '{weimicms::U('Blproduct/point_delete',array('id'=>$vo['id'],'token'=>$token))}');">删除</a></td>
+</tr>
+</volist>
+</tbody>
+</table>
+<if condition="!empty($data)" >
+<input style="margin-left:5px" class="btnGrayS" type="submit" value="确认" />
+</if>
+</form>
+<script>
+   function checkvotethis() {
+var aa=document.getElementsByName('del_id[]');
+var mnum = aa.length;
+j=0;
+for(i=0;i<mnum;i++){
+if(aa[i].checked){
+j++;
+}
+}
+if(j>0) {
+document.getElementById('info').submit();
+} else {
+alert('未选中任何文章或回复！')
+}
+}
+
+   </script> 
+</div>
+<div class="cLine">
+<div class="pageNavigator right">
+<div class="pages">{weimicms:$page}</div>
+</div>
+<div class="clr"></div>
+</div>
+</div>
+<include file="Public:footer"/>

@@ -1,0 +1,87 @@
+<include file="Public:head"/>
+<div class="content" <if condition="session('isQcloud') eq true">style="float:center;"</if>>
+
+<div class="cLineB">
+<if condition="$tip eq 1">
+  <h4>推荐位管理 <span class="FAQ">视野推荐位轮播图</span></h4>
+<else/>
+  <h4>广告推荐位管理 <span class="FAQ">推荐位轮播图</span></h4>
+</if>
+ </div>
+         <div class="cLineC" style="line-height: 32px;">
+ <a href="{weimicms::U('Guanggao/add',array('tip'=>$tip,'name'=>$name))}" class="btnGrayS vm bigbtn" ><if condition="$tip eq 1">添加轮播图<else/>添加图片</if></a> 
+</div>
+ 
+ <div class="msgWrap form">
+
+<div class="bdrcontent">
+<div id="div_ptype">
+<table class="ListProduct" border="0" cellSpacing="0" cellPadding="0" width="100%">
+<thead>
+<tr>
+				   <th style=" width:60px;">是否推荐</th>
+                   <TH style=" width:60px;">排序</TH>
+                   <th style=" width:120px;"><if condition="$tip eq 1">描述<else/>图片描述</if></th>
+
+<th><if condition="$tip eq 1">轮播<else/>图片</if> <a  target="999" class="tooltips" ><img src="{weimicms::RES}/images/price_help.png" align="absmiddle" /><span>
+<p>如果不填写分类地址系统将随机分配默认。</p>
+</span></a></th>
+                        <th><if condition="$tip eq 1">外链地址<else/>图片外链地址</if><span class="tooltips" ><img src="{weimicms::RES}/images/price_help.png" align="absmiddle" /><span>
+<p>比如你想跳转到百度，就填写<a class="red">http://www.baidu.com</a></p>
+<p>不需要跳转就不用填写，还可以外链活动</p>
+</span></span></th>
+						<th style=" width:100px;">商品标题</th>
+						<th style=" width:100px;">商品描述</th>
+                        <th style=" width:170px;" class="norightborder">操作</th>
+</tr>
+</thead>
+<form action="{weimicms::U('Guanggao/usort',array('tip'=>$info[0]['tip'],'name'=>$name))}" method="post">
+<volist name="info" id="vo">
+<tr>
+<td><select name="udisplay[{weimicms:$vo.id}]" >
+	<if condition="$vo.display eq 1">
+	<option value="1" selected="selected">推荐</option>
+	<option value="0">不推荐</option>
+	<else />
+	<option value="1" >推荐</option>
+	<option value="0" selected="selected">不推荐</option>
+	</if>
+</select></td>
+<td><input type="number" style=" width:40px;border:1px solid #c9c9c9;-webkit-border-radius: 3px;-moz-border-radius: 3px;border-radius: 3px;" class="usort" name="usort[{weimicms:$vo.id}]" value="{weimicms:$vo.sort}" /></td>
+<td>{weimicms:$vo.info}</td>
+<td><div class="cateimg"><img src="{weimicms:$vo.img}" class="cateimg_small"  /><img src="{weimicms:$vo.img}" class="cateimg_big"  /></div></td>
+<td>{weimicms:$vo.url|htmlspecialchars_decode}</td>
+<td>{weimicms:$vo.title}</td>
+<td>{weimicms:$vo.content}</td>
+<td class="norightborder">
+	<a href="{weimicms::U('Guanggao/edit',array('id'=>$vo['id'],'tip'=>$tip,'name'=>$name))}">编辑</a>
+	<a href="javascript:drop_confirm('您确定要删除吗?', \'{weimicms::U('Guanggao/del',array('id'=>$vo['id'],'tip'=>$tip,'name'=>$name))}\');">删除</a>
+</td>
+</tr>
+</volist>
+
+               
+  </table>
+</div>
+</div>
+<if condition="!empty($info)" >
+<input style="margin-left:5px" class="btnGrayS" type="submit" value="确认" />
+</if>
+</form>
+<div class="footactions" style="padding-left:10px">
+  <div class="pages">{weimicms:$page}</div>
+</div>
+          </div>
+  
+        </div>
+   
+        <div class="clr"></div>
+      </div>
+    </div>
+  </div> 
+  <!--底部-->
+  	</div>
+
+<if condition="session('isQcloud') neq true">
+<include file="Public:footer"/>
+</if>

@@ -1,0 +1,78 @@
+<include file="Public:head"/> 
+<link rel="stylesheet" type="text/css" href="./tpl/User/default/common/css/cymain.css" />
+ <link rel="stylesheet" href="{weimicms::RES}/css/diymen/tipswindown.css" type="text/css" media="all" />
+<script type="text/javascript" src="{weimicms::RES}/css/diymen/tipswindown.js"></script> 
+<script type="text/javascript">
+ $(document).ready(function() {
+	
+	$("#iframe1").click(function(){
+		tipsWindown("添加权限组","iframe:{weimicms::U('Group/add',array('token=>$token'))}","700","260","true","","true","leotheme");
+	});
+ });
+ </script>
+<div class="content">
+<!--tab end-->
+<div class="cLine">
+<div class="pageNavigator left"> <a href="javascript:;" title="添加" id="iframe1" class="btnGrayS vm bigbtn"><img src="{weimicms::RES}/images/product/add.png" width="16" class="vm">添加权限组</a></div>
+<div class="clr"></div>
+</div>
+<div class="msgWrap">
+<form method="post" action="" id="info">
+<input name="delall" type="hidden" value="">
+<input name="wxid" type="hidden" value="">
+<table class="ListProduct" border="0" cellspacing="0" cellpadding="0" width="100%">
+<thead>
+<tr>
+<th width="40">ID</th>
+<th width="260">节点名称</th>
+<th width="60">状态</th>
+<th width="200" class="norightborder">操作</th>
+</tr>
+</thead>
+<tbody>
+<volist name="list" id="vo">
+	<tr>
+		<td>{weimicms:$vo.id}</td>
+		<td>{weimicms:$vo.name}</td>
+		<td><if condition="$vo.status eq 1"><font color="red">√</font><else/><font color="blue">×</font></if></td>
+		<td>
+		<if condition="$vo.id eq 1">
+		<font color="#cccccc">修改</font> | <font color="#cccccc">删除</font>
+		<else/>
+		<a href='javascript:tipsWindown("修改权限组","iframe:{weimicms::U('Group/edit',array('id'=>$vo['id'],'token'=>$token))}","700","260","true","","true","leotheme");'>修改</a> | 
+		<a onclick="return confirm('确定删除吗？')" href="{weimicms::U('Group/del',array('id'=>$vo['id'],'token'=>$token))}">删除</a> | 
+		<a class="ss" id="{weimicms:$vo.id}"  href='javascript:tipsWindown("权限分配","iframe:{weimicms::U('Group/divideNode',array('roleid'=>$vo['id'],'token'=>$token))}","760","480","true","","true","leotheme");'>权限分配</a>
+		
+		</if>
+		</td>
+	</tr>
+</volist>
+</tbody>
+</table>
+</form>
+</div>
+<div class="cLine">
+<div class="pageNavigator right">
+<div class="pages">{weimicms:$page}</div>
+</div>
+<div class="clr"></div>
+</div>
+</div>
+
+<script >
+ $('.ss').click(function(){  
+	 var roleid= $(this).attr("id");
+		$.ajax({
+			url:"index.php?g=User&m=Group&a=select",
+			type:"POST",
+			data:{roleid:roleid},
+			dataType:"json",
+			success:function(data){
+				var d=explode(','data);
+				//alert(d);
+					
+			}
+		})
+ })
+</script>
+<include file="Public:footer"/>

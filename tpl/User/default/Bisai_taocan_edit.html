@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<form action="" target="_parent" method="post">
+<table>
+	<tr>
+		<td>所属比赛类别</td>
+		<td><select name="pid" id="">
+			<if condition="$data.pid eq 0">
+			<option value="0" selected="selected">主比赛</option>
+			<else/>
+			<option value="0" >主比赛</option>
+			</if>
+			<foreach name="pinpai" item="v">
+			<if condition="$data[pid] eq $v[id]">
+			<option value="{weimicms:$v.id}" selected="selected">{weimicms:$v.name}</option>
+			<else/>
+			<option value="{weimicms:$v.id}">{weimicms:$v.name}</option>
+			</if>
+			</foreach>
+		</select></td>
+	</tr>
+	<tr>
+		<td>名称：</td>
+		<td><input type="text" name="name" value="{weimicms:$data.name}" id="" /></td>
+	</tr>
+	<tr>
+		<td><input type="hidden" name="id" value="{weimicms:$data.id}" /></td>
+		<td><input type="submit" value="确定添加" /></td>
+	</tr>
+</table>
+</form>
+</body>
+</html>

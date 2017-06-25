@@ -1,0 +1,65 @@
+<include file="Public:head"/> 
+<link rel="stylesheet" type="text/css" href="./tpl/User/default/common/css/cymain.css" />
+ <link rel="stylesheet" href="{weimicms::RES}/css/diymen/tipswindown.css" type="text/css" media="all" />
+<script type="text/javascript" src="{weimicms::RES}/css/diymen/tipswindown.js"></script> 
+
+<script type="text/javascript">
+ $(document).ready(function() {
+	
+	$("#iframe1").click(function(){
+		tipsWindown("添加地区","iframe:{weimicms::U('Yiyuan/diqu_add')}","300","130","true","","true","leotheme");
+	});
+	$("#iframe2").click(function(){
+		tipsWindown("添加医院","iframe:{weimicms::U('Yiyuan/yiyuan_add')}","300","130","true","","true","leotheme");
+	});
+	$(".iframe3").click(function(){
+		var id=$(this).attr('id');
+		tipsWindown("修改","iframe:index.php?g=User&m=Yiyuan&a=yiyuan_edit&id="+id,"300","130","true","","true","leotheme");
+	});
+ });
+ </script>  
+<div class="content">
+<!--tab end-->
+<div class="cLine">
+<div class="pageNavigator left"> <a href="javascript:;" title="添加" id="iframe1" class="btnGrayS vm bigbtn"><img src="{weimicms::RES}/images/product/add.png" width="16" class="vm">添加地区</a></div>
+<div class="pageNavigator left" style="margin-left:3%;"> <a href="javascript:;" title="添加" id="iframe2" class="btnGrayS vm bigbtn"><img src="{weimicms::RES}/images/product/add.png" width="16" class="vm">添加医院</a></div>
+<div class="clr"></div>
+</div>
+<div class="msgWrap">
+<form method="post" action="" id="info">
+<table class="ListProduct" border="0" cellspacing="0" cellpadding="0" width="100%">
+<thead>
+<tr>
+<th width="40">地区名</th>
+<th width="60">医院名</th>
+<th width="60">地址</th>
+<th width="40">电话</th>
+<th width="50">操作</th>
+</tr>
+</thead>
+<tbody>
+<volist name="list" id="tablelist"> 
+	<volist name="tablelist['yiyuan']" id="answer" key="k">
+	<tr>
+		<if condition="$k eq 1">
+		<td rowspan="{weimicms:$tablelist['rowspan']}">{weimicms:$tablelist['name']}</td>
+		</if>
+		<td>{weimicms:$answer['name']}</td>
+		<td>{weimicms:$answer['addr']}</td>
+		<td>{weimicms:$answer['tel']}</td>
+		<td><a href="javascript:void(0)" id="{weimicms:$answer.id}" class="iframe3">修改</a> &nbsp;  <a href="{weimicms::U('Yiyuan/delete_yiyuan',array('id'=>$answer[id]))}">删除</a></td>
+	</tr>
+	</volist>
+</volist>
+</tbody>
+</table>
+</form>
+</div>
+<div class="cLine">
+<div class="pageNavigator right">
+<div class="pages">{weimicms:$page}</div>
+</div>
+<div class="clr"></div>
+</div>
+</div>
+<include file="Public:footer"/>

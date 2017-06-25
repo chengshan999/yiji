@@ -1,0 +1,50 @@
+<include file="Public:head" />
+<link rel="stylesheet" type="text/css" href="{weimicms::RES}/css/cymain.css" />
+<link href="{weimicms::RES}/css/activity.css" rel="stylesheet" type="text/css">
+<script src="/tpl/static/artDialog/jquery.artDialog.js?skin=default"></script>
+<script src="/tpl/static/artDialog/plugins/iframeTools.js"></script>
+<script src="/tpl/static/upyun.js"></script>
+<div class="content">
+<div class="cLineB">
+<h4 class="left">问卷调查</h4>
+<div class="clr"></div>
+</div>
+<!--tab start-->
+<div class="tab">
+<ul>
+<li class="current tabli" id="tab0"><a href="{weimicms::U('Research/index', array('name' => 'Wenjuan'))}">问卷列表</a></li>
+<li class="tabli" id="tab0"><a href="{weimicms::U('Research/saveInfo', array('name' => 'Wenjuan'))}">添加问卷</a></li>
+</ul>
+</div>
+<!--tab end-->
+<div class="msgWrap">
+<form method="post" action="" id="info">
+<table class="ListProduct" border="0" cellspacing="0" cellpadding="0" width="100%">
+<thead>
+	<tr>
+	<th>答题人头像</th>
+	<th>答题人昵称</th>
+	<th>得分</th>
+	<foreach name="question" item="v">
+		<th>{weimicms:$v.name}</th>
+	</foreach>
+	</tr>
+</thead>
+<tbody>
+<tr></tr>
+	<foreach name='answer' item="v">
+	<tr>
+		<td><img src="{weimicms:$v.headimgurl}" style="width:50px;" alt="" /></td>
+		<td>{weimicms:$v.nickname}</td>
+		<td>{weimicms:$v.score}</td>
+		<foreach name='v.answer' item='val'>
+			<td>{weimicms:$val.huida}</td>
+		</foreach>
+	</tr>
+	</foreach>
+</tbody>
+</table>
+</form>
+</div>
+</div>
+<include file="Public:footer"/>

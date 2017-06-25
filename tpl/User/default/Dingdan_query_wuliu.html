@@ -1,0 +1,56 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>详细信息</title>
+</head>
+<body>
+<form class="form" method="post" action="" target="_top" enctype="multipart/form-data">	 
+		<table border="0" cellspacing="0" cellpadding="0" width="100%" class="platform_table">
+		<if condition="$kuaidi_exist eq 1">
+		<tr>
+			<td style="color:red;">非跨境信息：</td>
+			<td></td>
+		</tr>
+		<if condition="$data eq null">
+		<tr>
+			<td>
+				暂无快递信息
+			</td>
+			<td></td>
+		</tr>
+		<else/>
+		<foreach name="data" item="v">
+			<tr>
+				<td>{weimicms:$v.context}</td>
+				<td>{weimicms:$v.time}</td>
+			</tr>
+		</foreach>
+		</if>
+		</if>
+		<if condition="$ueq_exist eq 1">
+		<tr>
+			<td style="color:red;">跨境信息：</td>
+			<td></td>
+		</tr>
+		<if condition="$ueq_data eq null">
+		<tr>
+			<td>
+				暂无快递信息
+			</td>
+			<td></td>
+		</tr>
+		<else/>
+		<foreach name="ueq_data" item="v">
+			<tr>
+				<td>{weimicms:$v.context}</td>
+				<td>{weimicms:$v.time}</td>
+			</tr>
+		</foreach>
+		</if>
+		</if>
+		</table>
+		
+</form>
+</body>
+</html>

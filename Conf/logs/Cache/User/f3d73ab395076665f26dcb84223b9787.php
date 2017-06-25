@@ -1,0 +1,63 @@
+<?php if (!defined('THINK_PATH')) exit();?><script src="/tpl/static/jquery-1.4.2.min.js" type="text/javascript"></script>
+<script src="/tpl/static/upyun.js?2013"></script>
+<script src="/tpl/static/artDialog/jquery.artDialog.js?skin=default"></script>
+<script src="/tpl/static/artDialog/plugins/iframeTools.js"></script>
+<script src="/tpl/static/jquery.validate.js"></script>
+<style>
+.action {
+    background: none repeat scroll 0 0 #FFFFFF;
+    box-shadow: 1px 1px 3px #666666;
+    width: 359px;
+}  
+a{text-decoration:none}
+a.a_upload,a.a_choose{border:1px solid #3d810c;box-shadow:0 1px #CCCCCC;-moz-box-shadow:0 1px #CCCCCC;-webkit-box-shadow:0 1px #CCCCCC;cursor:pointer;display:inline-block;text-align:center;vertical-align:bottom;overflow:visible;border-radius:3px;-moz-border-radius:3px;-webkit-border-radius:3px;vertical-align:middle;background-color:#f1f1f1;background-image: -webkit-linear-gradient(bottom, #CCC 0%, #E5E5E5 3%, #FFF 97%, #FFF 100%); background-image: -moz-linear-gradient(bottom, #CCC 0%, #E5E5E5 3%, #FFF 97%, #FFF 100%); background-image: -ms-linear-gradient(bottom, #CCC 0%, #E5E5E5 3%, #FFF 97%, #FFF 100%); color:#000;border:1px solid #AAA;padding:2px 8px 2px 8px;text-shadow: 0 1px #FFFFFF;font-size: 14px;line-height: 1.5;
+}
+th,td{text-align: -webkit-left;font-size:12px;}
+.error{color:red}
+</style>
+
+	<form action="" method="post" target="_parent" id="realinfo_form">
+	<table border="0" cellpadding="0" cellspacing="0" width="100%">
+		<tbody>
+		<tr bgcolor="#F1F1F1">
+			<th align="right" height="62" width="">权限组名称：</th>
+			<td>
+				<div class="mr15 l">
+				<input id="name" class="txt" name="name" title="权限组名称" value="" type="text">		
+				</div>
+				
+				<div class="system l"></div>
+			</td>
+		</tr>
+		<tr>
+			<th align="right" height="62">状态：</th>
+			<td>
+				<div class="mr15 l">
+				<input type="radio" name="status" checked="checked" value="1">启用&nbsp;
+				<input type="radio" name="status" value="0">关闭&nbsp;
+				</div>
+				<div class="system l"></div>
+			</td>
+		</tr>
+		<tr bgcolor="#F1F1F1">
+			<td height="62">&nbsp;</td>
+			<td>
+			<div class="mr15 l">
+				<input class="btn" type="submit" name="submit"  value="提交">
+			</div>
+			<div class="system l"></div>
+			</td>
+		</tr>
+<script>
+$(document).ready(function() {
+	$("#realinfo_form").validate({
+		rules: {
+			name:{required:true}
+		}
+	});
+	
+	
+})
+</script>
+	</tbody></table>
+</form>

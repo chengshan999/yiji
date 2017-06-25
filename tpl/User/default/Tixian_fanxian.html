@@ -1,0 +1,56 @@
+<include file="Public:head"/>
+<link rel="stylesheet" type="text/css" href="{weimicms::RES}/css/cymain.css" />
+<div class="content">
+
+<div class="cLineB">
+  <h4>返现查询 </h4>
+   <div class="ftip" style="margin:10px 0">在此显示使用平台支付的订单列表，方便与管理员进行提现管理。</div> 
+ </div>
+   
+ <!--tab start-->
+<script src="/tpl/static/artDialog/jquery.artDialog.js?skin=default"></script>
+
+<script>
+
+</script>
+<style>
+.platform_table td{text-align:center;height:40px;border-bottom:1px solid #E7E7E7;}
+input{text-align:center;}
+.openid{width:196px}
+.jine{width:30px}
+.name{width:74px}
+</style>
+<!--tab end-->    
+
+    <div class="msgWrap bgfc">
+	  <form class="form" method="post" action="{weimicms::U('Tixian/fanxians',array('name'=>$name))}"  enctype="multipart/form-data">	 
+		<table border="0" cellspacing="0" cellpadding="0" width="100%" class="platform_table">
+			<tr>
+				<td>提现订单号</td>
+				<td>用户名</td>
+				<td>提现金额(元)</td>
+				<td>账户余额(元)</td>
+				<td>支付时间</td>
+				<td>状态</td>
+			</tr>
+			<volist name="data" id="vo">
+				<tr>
+					<td><input type='text' value="{weimicms:$vo['order']}" readonly="readonly" style='width: 221px;'/></td>
+					<td><input type='text'  value="{weimicms:$vo['name']}" readonly="readonly" class="name"/></td>
+					<td><input type='text'  value="{weimicms:$vo['jine']}" readonly="readonly" class="jine" style="width: 65px"/></td>
+					<td><input type='text'  value="{weimicms:$vo['money']}" readonly="readonly" class="jine" style="width:113px;"/></td>
+					<td><input type='text' value="{weimicms:$vo['time']}" readonly="readonly"/></td>
+					<td><input type='text'  value="{weimicms:$vo['mes']}" readonly="readonly" style="width:215px;"/></td>
+				</tr>
+			</volist>
+			<td>
+				<input type='submit'  style="color:#000;font-size:14px;padding:1px 24px;background:#4A98E0;"value='提交'/></span>
+				</td>
+		</table>
+		
+	</form>
+  </div> 
+ 
+  
+        </div>
+<include file="Public:footer"/>

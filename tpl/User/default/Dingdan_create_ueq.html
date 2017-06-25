@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<if condition="$product eq null">
+<h2 style='text-align:center;'>此订单暂无跨境产品！</h2>
+<else/>
+<form class="form" method="post" action="" target="_top" enctype="multipart/form-data">	 
+		<table border="0" cellspacing="0" cellpadding="0" width="100%" class="platform_table">
+			<tr>
+			<td style='color:red;'>订购人信息</td>
+			<td></td>
+			</tr>
+			<tr>
+			<input type="hidden" name="orderid"  value="{weimicms:$order.orderid}"/>
+			<input type="hidden" name="id"  value="{weimicms:$order.id}"/>
+				<td>姓名: <input type="text" readonly="readonly" style="background:#ccc;" name="xingming" value="{weimicms:$user.xingming}" id="" /></td>
+				<td>身份证号: <input type="text" readonly="readonly" style="background:#ccc;" name="card_num" value="{weimicms:$user.card_num}" id="" /></td>
+			</tr>
+			<tr>
+				<td>电话: <input type="text" readonly="readonly" style="background:#ccc;" name="tel" value="{weimicms:$user.tel}" id="" /></td>
+				<td>注册账号: <input type="text" readonly="readonly" style="background:#ccc;" name="zhanghao" value="{weimicms:$user.zhanghao}" id="" /></td>
+			</tr>
+			<tr>
+			<td style='color:red;'>收获人信息</td>
+			<td></td>
+			</tr>
+			<tr>
+				<td>姓名: <input type="text" readonly="readonly" style="background:#ccc;" name="shouhuo_xingming" value="{weimicms:$shouhuo.xingming}" id="" /></td>
+				<td>省份: <input type="text" readonly="readonly" style="background:#ccc;" name="province" id="" value="{weimicms:$shouhuo.province}" /></td>
+			</tr>
+			<tr>
+				<td>城市: <input type="text" readonly="readonly" style="background:#ccc;" name="city" id="" value='{weimicms:$shouhuo.city}' /></td>
+				<td>区/县: <input type="text" readonly="readonly" style="background:#ccc;" name="area" id="" value='{weimicms:$shouhuo.area}' /></td>
+			</tr>
+			<tr>
+				<td>收获地址: <input type="text" readonly="readonly" style="background:#ccc;" name="addr" id="" value='{weimicms:$shouhuo.addr}' /></td>
+				<td>电话: <input type="text" readonly="readonly" style="background:#ccc;" name="shouhuo_tel" id="" value='{weimicms:$shouhuo.tel}' /></td>
+			</tr>
+			<tr>
+			<td style='color:red;'>订单信息</td>
+			<td></td>
+			</tr>
+			<tr>
+				<td>实际支付金额: <input type="text" name="total_price" readonly="readonly" style="background:#ccc;" value="{weimicms:$all_price}"  id="" /></td>
+				<td>主要货物信息: <input type="text"  name="productInfo" id="" value="真珠美学系列产品" /></td>
+			</tr>
+			<tr>
+				<td>订单总金额: <input type="text" name="total_price" readonly="readonly" style="background:#ccc;" value="{weimicms:$all_price}"   id="" /></td>
+				<td>运费: <input type="text" name="" readonly="readonly" style="background:#ccc;" value="0" id="" /></td>
+			</tr>
+			<foreach name="product" item="v">
+			<tr>
+			<td style='color:red;'>商品信息(填写条形码)</td>
+			<td></td>
+			</tr>
+			<tr>
+				<td>商品条形码: <input type="text" name="tiaoxingma[{weimicms:$key}]" readonly="readonly" style="background:#ccc;" value="{weimicms:$v.tiaoxingma}" id="" /></td>
+				<td>商品名称: <input type="text" name="productName[{weimicms:$key}]" readonly="readonly" style="background:#ccc;" value="{weimicms:$v.productName}" id="" /></td>
+			</tr>
+			<tr>
+				<td>商品数量: <input type="text" name="num[{weimicms:$key}]" readonly="readonly" style="background:#ccc;" value="{weimicms:$v.number}" id="" /></td>
+				<td>商品单价: <input type="text" name="price[{weimicms:$key}]" readonly="readonly" style="background:#ccc;" value="{weimicms:$v.zhiyou_price}"   id="" /></td>
+			</tr>
+			<tr>
+				<td>付款金额: <input type="text" name="product_total_price[{weimicms:$key}]" readonly="readonly" style="background:#ccc;" value="{weimicms:$v.product_total_price}" id="" /></td>
+				<td></td>
+			</tr>
+			</foreach>
+			<tr>
+				<td style='color:red;'>调用ueq接口生成订单需要几秒钟的时间，确定后请勿关闭页面</td>
+				<td><input type="submit" value="确定" class="btnGrayS" /></td>
+			</tr>
+		</table>
+		
+</form>
+</if>
+</body>
+</html>

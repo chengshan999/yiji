@@ -1,0 +1,66 @@
+<include file="Public:head"/> 
+<link rel="stylesheet" type="text/css" href="./tpl/User/default/common/css/cymain.css" />
+ <link rel="stylesheet" href="{weimicms::RES}/css/diymen/tipswindown.css" type="text/css" media="all" />
+<script type="text/javascript" src="{weimicms::RES}/css/diymen/tipswindown.js"></script> 
+
+<script type="text/javascript">
+ $(document).ready(function() {
+	
+	$("#iframe1").click(function(){
+		tipsWindown("添加管理员","iframe:{weimicms::U('Admin/add',array('token=>$token'))}","760","460","true","","true","leotheme");
+	});
+ });
+ </script>  
+<div class="content">
+<!--tab end-->
+<div class="cLine">
+<div class="pageNavigator left"> <a href="javascript:;" title="添加" id="iframe1" class="btnGrayS vm bigbtn"><img src="{weimicms::RES}/images/product/add.png" width="16" class="vm">添加管理员</a></div>
+<div class="clr"></div>
+</div>
+<div class="msgWrap">
+<form method="post" action="" id="info">
+<table class="ListProduct" border="0" cellspacing="0" cellpadding="0" width="100%">
+<thead>
+<tr>
+<th width="40">ID</th>
+<th width="50">账号</th>
+<th width="80">权限组</th>
+<th width="80">上次登录IP</th>
+<th width="100">上次登录时间</th>
+<th width="100">账号创建时间</th>
+<th width="30">状态</th>
+<th width="200" class="norightborder">操作</th>
+</tr>
+</thead>
+<tbody>
+<volist name="list" id="vo">
+	<tr>
+		<td>{weimicms:$vo.id}</td>
+		<td>{weimicms:$vo.username}</td>
+		<td>{weimicms:$vo.group}</td>
+		<td>{weimicms:$vo.lastip}</td>
+		<td>{weimicms:$vo.lasttime|date="Y-m-d H:i:s",###}</td>
+		<td>{weimicms:$vo.createtime|date="Y-m-d H:i:s",###}</td>
+		<td><if condition="$vo.status eq 1"><font color="red">√</font><else/><font color="blue">×</font></if></td>
+		<td>
+		<if condition="$vo.id eq 1">
+		<font color="#cccccc">修改</font> | <font color="#cccccc">删除</font>
+		<else/>
+		<a href='javascript:tipsWindown("修改管理员信息","iframe:{weimicms::U('Admin/edit',array('id'=>$vo['id'],'token'=>$token))}","760","460","true","","true","leotheme");'>修改</a> | 
+		<a onclick="return confirm('确定删除吗？')" href="{weimicms::U('Admin/del',array('id'=>$vo['id'],'token'=>$token))}">删除</a>
+		</if>
+		</td>
+	</tr>
+</volist>
+</tbody>
+</table>
+</form>
+</div>
+<div class="cLine">
+<div class="pageNavigator right">
+<div class="pages">{weimicms:$page}</div>
+</div>
+<div class="clr"></div>
+</div>
+</div>
+<include file="Public:footer"/>

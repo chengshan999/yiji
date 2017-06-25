@@ -1,0 +1,131 @@
+<include file="Public:head"/>
+<link rel="stylesheet" href="{weimicms::STATICS}/kindeditor/themes/default/default.css" />
+<link rel="stylesheet" href="{weimicms::STATICS}/kindeditor/plugins/code/prettify.css" />
+<script src="{weimicms::STATICS}/kindeditor/kindeditor.js" type="text/javascript"></script>
+<script src="{weimicms::STATICS}/kindeditor/lang/zh_CN.js" type="text/javascript"></script>
+<script src="{weimicms::STATICS}/kindeditor/plugins/code/prettify.js" type="text/javascript"></script>
+<script src="/tpl/static/artDialog/jquery.artDialog.js?skin=default"></script>
+<script src="/tpl/static/artDialog/plugins/iframeTools.js"></script>
+<script>
+
+var editor;
+KindEditor.ready(function(K) {
+editor = K.create('#info', {
+resizeType : 1,
+allowPreviewEmoticons : false,
+allowImageUpload : true,
+postParams:{'PHPSESSID':"<?php echo session_id();?>"},
+uploadJson : '/index.php?g=User&m=Upyun&a=kindedtiropic',
+items : [
+						'source','fontname', 'fontsize', '|', 'forecolor', 'hilitecolor', 'bold', 'italic', 'underline',
+						'removeformat', '|', 'justifyleft', 'justifycenter', 'justifyright', 'insertorderedlist',
+						'insertunorderedlist', '|', 'emoticons', 'image','multiimage', 'link', 'music', 'video']
+});
+
+});
+</script>
+
+<div class="content" <if condition="session('isQcloud') eq true">style="float:center;"</if>>
+          <div class="cLineB"><h4>修改资讯内容</h4><a href="javascript:history.go(-1);"  class="right btnGrayS vm" style="margin-top:-27px" >返回</a></div>
+         
+          <form method="post"   action="{weimicms::U('Img/edit',array('id'=>$info[id]))}"  enctype="multipart/form-data" >
+          <div class="msgWrap form">
+            <TABLE class="userinfoArea" border="0" cellSpacing="0" cellPadding="0" width="100%">
+              <THEAD>
+       	<!--  <TR>
+                  <TH style="width:120px" valign="top"><label for="keyword">关键词：</label></TH>
+                  <TD><input type="text" class="px" id="keyword" value="{weimicms:$info.keyword}"  name="keyword" style="width:580px;"><br />
+                  多个关键词请用空格格开：例如: 美丽&nbsp;漂亮&nbsp;好看 </TD>
+                </TR> -->
+              </THEAD>
+              <TBODY>
+               <TR>
+                  <TH><span class="red">*</span><label for="title">标题：</label></TH>
+                  <TD><input type="text" class="px" id="title" value="{weimicms:$info.title}"    name="title" style="width:580px;"> </TD>
+                </TR>
+                 <TR>
+                  <TH><label for="writer">作者：</label></TH>
+                  <TD><input type="text" class="px" id="writer" value="{weimicms:$info.writer}"    name="writer" style="width:580px;"> </TD>
+                </TR> 
+
+                <TR>
+                  <TH valign="top"><label for="text">简介：</label></TH>
+                  <TD><textarea  class="px" id="Hfcontent"   name="text" style="width:580px;  height:100px">{weimicms:$info.text}</textarea><br />限制200字内
+</TD>
+                </TR>
+                <TR>
+                  <TH valign="top"><label for="classid">文章所属类别：</label></TH>
+                  <TD>
+					<select name="classid" id="">
+                  	<foreach name="fenlei" item="v">
+                  		<option <?php if($v['id']==$info['classid']){echo 'selected';} ?> value="{weimicms:$v.id}">{weimicms:$v.name}</option>
+                  		<foreach name='v.fenlei' item='val'>
+                  			<option <?php if($val['id']==$info['classid']){echo 'selected';} ?> value="{weimicms:$val.id}"> &nbsp;&nbsp;&nbsp; ┗ ━ ━{weimicms:$val.name}</option>
+                  		</foreach>
+                  	</foreach>
+                  		
+                  	</select>
+                  	 </TD>
+                </TR>
+                <TR style="display:none;">
+                	<TH valign="top"><label for="ppt">上传文件：<br />（20M以内）</label></TH>
+                  <TD><input type="file" name="ppt" id="ppt" />已有文件:{weimicms:$info.ppt}（不传视为不变）</TD>
+                </TR>
+                <TR>
+                  <TH valign="top"><label for="pic">封面图片地址：</label></TH>
+                  <TD><input type="text" class="px"  name="pic" id="pic" value="{weimicms:$info.pic}" style="width:580px;"  />  <script src="/tpl/static/upyun.js?{weimicms::date('YmdHis',time())}"></script><a href="###" onclick="upyunPicUpload('pic',700,420,'{weimicms:$token}')" class="a_upload">上传</a> <a href="###" onclick="viewImg('pic')">预览</a>
+                  </TD>
+                </TR>
+                <TR>
+                  <TH><label for="type">资源类型（图像文字/视频）：</label></TH>
+                  <TD><input type="text" class="px" id="type" value="{weimicms:$info.type}"    name="type" style="width:580px;"> </TD>
+                </TR> 
+                <TR> 
+                   <TH valign="top"><label for="info">图文详细页内容：</label></TH> 
+                   <TD><textarea name="info" id="info"   rows="5" style="width:590px;height:360px"   >  {weimicms:$info.info} </textarea></TD> 
+                 </TR>   
+                 <TR>
+                  <TH valign="top"><label for="url">图文外链网址：</label></TH>
+                  <TD><input type="text" class="px" id="url" value="{weimicms:$info.url}" name="url" style="width:380px;">  </TD>
+                </TR>
+                <TR>
+                  <TH></TH>
+                  <TD><input type="submit" value="保存" name="sbmt" class="btnGreen left">　<a href="{weimicms::U('Img/index',array('name'=>$name))}"  class="btnGray vm">取消</a></TD>
+                </TR>
+              </TBODY>
+            </TABLE>
+            
+          </div>
+          </form>
+          
+        </div>     
+ 
+        <div class="clr"></div>
+      </div>
+    </div>
+  </div> 
+<!--底部-->
+  	</div>
+<if condition="session('isQcloud') neq true">
+<include file="Public:footer"/>
+</if>
+<script>
+var classid="{weimicms:$info.classid}";
+if(classid==16){
+	$("select").parent().parent().nextAll().css('display','none');
+	$("select").parent().parent().parent().find('TR:last').css('display','');
+	$("#ppt").parent().parent().show();
+}
+$("select").change(function(){
+	if($(this).val()=='16'){
+		$(this).parent().parent().nextAll().css('display','none');
+		$(this).parent().parent().parent().find('TR:last').css('display','');
+		$("#ppt").parent().parent().show();
+		$("input[name=type]").val('ppt');
+	}else{
+		$(this).parent().parent().nextAll().css('display','');
+		$("#ppt").parent().parent().hide();
+		$("input[name=type]").val('');
+	}
+})
+</script>

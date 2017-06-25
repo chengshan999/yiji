@@ -1,0 +1,103 @@
+ <include file="Public:head" /> 
+ <link rel="stylesheet" href="{weimicms::STATICS}/kindeditor/themes/default/default.css" />
+<link rel="stylesheet" href="{weimicms::STATICS}/kindeditor/plugins/code/prettify.css" />
+<script src="{weimicms::STATICS}/kindeditor/kindeditor.js" type="text/javascript"></script>
+<script src="{weimicms::STATICS}/kindeditor/lang/zh_CN.js" type="text/javascript"></script>
+<script src="{weimicms::STATICS}/kindeditor/plugins/code/prettify.js" type="text/javascript"></script>
+<script src="/tpl/static/artDialog/jquery.artDialog.js?skin=default"></script>
+<script src="/tpl/static/artDialog/plugins/iframeTools.js"></script>
+<script>
+
+var editor;
+KindEditor.ready(function(K) {
+editor = K.create('.intro', {
+resizeType : 1,
+allowPreviewEmoticons : false,
+allowImageUpload : true,
+uploadJson : '/index.php?g=User&m=Upyun&a=kindedtiropic',
+items : [
+'source','undo','clearhtml','hr',
+'removeformat', '|', 'justifyleft', 'justifycenter', 'justifyright', 'insertorderedlist',
+'insertunorderedlist', '|', 'emoticons', 'image','link', 'unlink','baidumap','lineheight','table','anchor','preview','print','template','code','cut', 'music', 'video']
+});
+
+});
+</script>
+
+<script>
+function showChildCats(value){
+	$("#catid").html('<option value="0">请选择...</option>');
+	if(value==0){
+		document.getElementById('catid').disabled=true;
+	}else{
+		$.ajax({
+			url: $('#catUrl').attr("value")+'&parentid='+value,
+			success: function( data ) {
+				document.getElementById('catid').disabled=false;
+				$("#catid").html($("#catid").html()+data);
+			}
+		});
+	}
+}
+function toDecimal(x) {  
+            var f = parseFloat(x);  
+            if (isNaN(f)) {  
+                return;  
+            }  
+            f = Math.round(x*10)/10;  
+            return f;  
+        }  
+function calDiscount(){
+	var price=$('#price').attr('value');
+	var oprice=$('#oprice').attr('value');
+	if(oprice!=0&&oprice!=''){
+		var dis=oprice-price;
+		var discount=10-toDecimal((dis/oprice)*10);
+	}else{
+		discount=10;
+	}
+	$('#discount').attr('value',discount);
+}
+</script>
+  <div class="content"> 
+   <div class="cLineB"> 
+    <h4>封面添加</h4> 
+    <a href="{weimicms::U('Question/index',array('name'=>'question'))}"  class="right  btnGreen" style="margin-top:-27px">返回</a> 
+   </div> 
+   <form class="form" method="post" action="" enctype="multipart/form-data"> 
+<input type="hidden" name="id" value="{weimicms:$data.id}" />
+    <div class="msgWrap bgfc"> 
+     <table class="userinfoArea" style=" margin:0;" border="0" cellspacing="0" cellpadding="0" width="100%"> 
+      <tbody> 
+       	<tr> 
+        <th>问题所属分类：</th>
+        <td><select name="type_id" id="">
+        <foreach name="fenlei" item='v'>
+        <if condition="$v[id] eq $data[type_id]">
+        <option selected value="{weimicms:$v.id}">{weimicms:$v.name}</option>
+        <else/>
+        <option value="{weimicms:$v.id}">{weimicms:$v.name}</option>
+        </if>
+        </foreach>
+        </select></td> 
+       </tr>
+        <TR>
+                  <TH valign="top"><label for="info">Q：</label></TH>
+                  <TD><textarea name="question" class="intro"  rows="5" style="width:200px;height:130px">{weimicms:$data.question}</textarea></TD>
+        </TR>  
+        <TR>
+                  <TH valign="top"><label for="info">A：</label></TH>
+                  <TD><textarea name="answer" class="intro"  rows="5" style="width:200px;height:230px">{weimicms:$data.answer}</textarea></TD>
+        </TR>  
+       <tr>         
+       <th>&nbsp;</th>
+       <td>
+       <button type="submit" name="button" class="btnGreen">保存</button> &nbsp; <a href="{weimicms::U('Question/index',array('name'=>'question','token'=>$token))}" class="btnGray vm">取消</a></td> 
+       </tr> 
+      </tbody> 
+     </table> 
+     </div>
+    
+   </form> 
+  </div> 
+  <include file="Public:footer" />

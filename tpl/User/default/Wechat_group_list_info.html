@@ -1,0 +1,66 @@
+<include file="Public:head"/>
+<script>
+    function selectall(name) {
+        var checkItems = $('.cbitem');
+        if ($("#check_box").attr('checked') == false) {
+            $.each(checkItems, function(i, val) {
+                val.checked = false;
+            });
+
+        } else {
+            $.each(checkItems, function(i, val) {
+                val.checked = true;
+            });
+        }
+    }
+</script>
+<script src="/tpl/static/fushionCharts/JSClass/FusionCharts.js" type="text/javascript"></script>   
+<link rel="stylesheet" type="text/css" href="./tpl/User/default/common/css/cymain.css" />
+<div class="content">
+    <div class="cLineB">
+        <h4 class="left">全部黑名单用户</h4>
+        <a href="javascript:history.go(-1);"  class="right btnGrayS vm" style="margin-top:-0px" >返回</a>
+        <div class="clr"></div>
+    </div>
+    <h1 style=" color: red; padding-top:10px;margin-top:10px;">总金额：{weimicms:$total}元</h1>
+    <h1 style=" color: red; padding-top:10px;margin-top:10px;">总人数：{weimicms:$count}</h1>
+    <div class="msgWrap" style="border-top:1px solid #ccc;padding-top:10px;margin-top:10px;">
+
+        <table class="ListProduct" border="0" cellspacing="0" cellpadding="0" width="100%">
+            <thead>
+                <tr>
+                    <!--<th class="select"><input type="checkbox" value="" id="check_box" onclick="selectall('id[]');"></th>-->
+                    <th class="select">编号</th>
+                    <th>openid </th>
+                    <th>手机号</th>
+                    <th>中奖金额(元)</th>
+                    <th>抽奖时间</th>
+                </tr>
+            </thead>
+            <tbody>
+            <volist name="list" id="list" key="k">
+                <tr>
+                    <!--<td><input type="checkbox" value="{weimicms:$list.id}" class="cbitem" name="id_{weimicms:$list.id}"></td>-->
+                    <td>{weimicms:$k}</td>
+                    <!--<td>{weimicms:$list.id}</td>-->
+                    <td>{weimicms:$list.openid}</td>
+                    <td>{weimicms:$list.user_phone}</td>
+                    <td>{weimicms:$list.jiang_name}</td>
+                    <td>{weimicms:$list.date_time}</td>
+                </tr>
+            </volist>
+            <tr>
+
+            </tr>
+            </tbody>
+        </table>
+        </form>
+    </div>
+    <div class="cLine">
+        <div class="pageNavigator right">
+            <div class="pages">{weimicms:$page}</div>
+        </div>
+        <div class="clr"></div>
+    </div>
+</div>	
+<include file="Public:footer"/>

@@ -1,0 +1,59 @@
+<include file="Public:head" />
+<link rel="stylesheet" type="text/css" href="{weimicms::RES}/css/cymain.css" />
+<link href="{weimicms::RES}/css/activity.css" rel="stylesheet" type="text/css">
+<script src="/tpl/static/artDialog/jquery.artDialog.js?skin=default"></script>
+<script src="/tpl/static/artDialog/plugins/iframeTools.js"></script>
+<script src="/tpl/static/upyun.js"></script>
+<div class="content">
+<div class="cLineB">
+<h4 class="left">问卷调查</h4>
+<div class="clr"></div>
+</div>
+<!--tab start-->
+<div class="tab">
+<ul>
+<li class="current tabli" id="tab0"><a href="{weimicms::U('Research/index', array('name' => 'Wenjuan'))}">问卷列表</a></li>
+<li class="tabli" id="tab0"><a href="{weimicms::U('Research/saveInfo', array('name' => 'Wenjuan'))}">添加问卷</a></li>
+</ul>
+</div>
+<div class="cLine">
+<div class="clr"></div>
+</div>
+<!--tab end-->
+<div class="msgWrap">
+<form method="post" action="" id="info">
+<table class="ListProduct" border="0" cellspacing="0" cellpadding="0" width="100%">
+<thead>
+	<tr>
+		<th width="100">问卷标题</th>
+		<th width="70">问卷图片</th>
+		<th width="200">介绍</th>
+		<th width="120">开始时间</th>
+		<th width="120">过期时间</th>
+		<th width="200" class="norightborder">操作</th>
+	</tr>
+</thead>
+<tbody>
+<tr></tr>
+<volist name="list" id="tablelist"> 
+	<tr>
+		<td>{weimicms:$tablelist.title}</td>
+		<td><if condition="$tablelist.pic neq null"><img src="{weimicms:$tablelist.pic}" width="50px" alt="" /></if></td>
+		<td>{weimicms:$tablelist.description}</td>
+		<td>{weimicms:$tablelist.starttime|date="Y-m-d H:i:s",###}</td>
+		<td>{weimicms:$tablelist.endtime|date="Y-m-d H:i:s",###}</td>
+		<td class="norightborder">
+			<a href="{weimicms::U('Research/saveInfo', array('rid' => $tablelist['id'], 'name' => 'Wenjuan'))}">修改</a> 
+			<a href="javascript:drop_confirm('您确定要删除吗?', '{weimicms::U('Research/delResearch',array('rid' => $tablelist['id'], 'name' => 'Wenjuan'))}');">删除</a>
+			<a href="{weimicms::U('Research/count',array('rid' => $tablelist['id'], 'name' => 'Wenjuan'))}">选项统计</a>
+			<a href="{weimicms::U('Research/answer',array('rid' => $tablelist['id'], 'name' => 'Wenjuan'))}">具体回答</a>
+			<a target="_blank" href="{weimicms::U('Research/qcode',array('rid' => $tablelist['id']))}">答题二维码</a>
+		</td>
+	</tr>
+</volist>
+</tbody>
+</table>
+</form>
+</div>
+</div>
+<include file="Public:footer"/>

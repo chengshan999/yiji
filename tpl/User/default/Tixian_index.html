@@ -1,0 +1,88 @@
+<include file="Public:head"/>
+<link rel="stylesheet" type="text/css" href="{weimicms::RES}/css/cymain.css" />
+<div class="content">
+    <div class="cLineB">
+        <h4>提现名单 </h4>
+        <div class="ftip" style="margin:10px 0">
+            <form method="post" action="">
+                <input type="text" id="openid" class="px" size="40" placeholder="请输入 OpenId 查询" name="openid" value="{weimicms:$openid}">
+                <input type="submit" value="搜索" id="msgSearchBtn" href="" class="btnGrayS" title="搜索">
+            </form>
+        </div> 
+    </div>
+
+    <!--tab start-->
+    <script src="/tpl/static/artDialog/jquery.artDialog.js?skin=default"></script>
+    <script>
+        $(function() {
+            var a = 0;
+            $(".platform_table tr").slice(1, -3).each(function() {
+                a = a + parseFloat($(this).find(".money_val").val());
+                $(".total").text(a.toFixed(2));
+            });
+            var offset = true;
+            $(".quanxuan").click(function() {
+                if (offset) {
+                    $(".fuxuan").attr("checked", true);
+                    offset = false;
+                } else {
+                    $(".fuxuan").attr("checked", false);
+                    offset = true;
+                }
+
+            })
+        })
+    </script>
+    <style>
+        .form{margin-left:-18px}
+        .platform_table td{text-align:center;height:40px;border-bottom:1px solid #E7E7E7;}
+        input{text-align:center;}
+        .time_input{width:120px;}
+
+    </style>
+    <!--tab end-->    
+
+    <div class="msgWrap bgfc">
+        <form class="form" method="post" action="{weimicms::U('Tixian/add',array('name'=>$name))}"  enctype="multipart/form-data">	 
+            <table border="0" cellspacing="0" cellpadding="0" width="100%" class="platform_table">
+                <tr>
+                    <td class="quanxuan"><p style="width:30px">全选</p>  </td>
+                    <td>提现订单号</td>
+                    <td>用户名</td>
+                    <td>用户Openid</td>
+                    <td>提现金额(元)</td>
+                    <td>账户余额(元)</td>
+                    <td>提现时间</td>
+                </tr>
+                <volist name="data" id="vo">
+                    <tr>
+                        <td><input type="checkbox" value="{weimicms:$vo['id']}" class="fuxuan" name='list[]'/></td>
+                        <td><input type='text' name='order[]' value="{weimicms:$vo['order']}" readonly="readonly" style='width: 221px;'/></td>
+                        <td><input type='text' name='name[]' value="{weimicms:$vo['name']}" readonly="readonly" /></td>
+                        <td><input type='text' name='openid[]' value="{weimicms:$vo['openid']}" readonly="readonly" style='width: 221px;'/></td>
+                        <td><input type='text' name='jine[]' value="{weimicms:$vo['jine']}" readonly="readonly" class="money_val"/></td>
+                        <td><input type='text' name='yue[]' value="{weimicms:$vo['points']}" readonly="readonly" /></td>
+                        <td><input type='text' name='time[]' value="{weimicms:$vo['time']}" readonly="readonly" class="time_input"/></td>
+                    </tr>
+                </volist>
+                <tr>
+                    <td colspan="7"><div style="float:right;">{weimicms:$page}</div></td>
+                </tr>
+                <tr>
+                    <td colspan="5"><div style="float:left;">总计：总金额 (<font color="blue" >{weimicms::$moneys}</font>) </div></td>
+                    <td>
+                        <input type="submit" value="提交" id="msgSearchBtn" href=""  style="color:#000;font-size:14px;padding:1px 24px;background:#4A98E0;">
+                        <!-- <input type='submit'  style="color:#000;font-size:14px;padding:1px 24px;background:#4A98E0;"value='提交'/></span> -->
+                    </td>
+
+                    <td>
+                        <a href="{weimicms::U('Tixian/select',array('name'=>$name))}" style="color:#000;font-size:14px;background:#4A98E0;padding: 2px 24px;">查询</a></span>
+                    </td>
+                </tr>
+            </table>
+
+            <?php session_start(); ?>		
+        </form>
+    </div>
+</div>	
+<include file="Public:footer"/>

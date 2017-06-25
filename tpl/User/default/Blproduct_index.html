@@ -1,0 +1,85 @@
+<include file="Public:head"/> 
+<link rel="stylesheet" type="text/css" href="{weimicms::RES}/css/cymain.css" />
+        <div class="content">
+<div class="cLineB">
+<h4 class="left">课程管理 </h4>
+<div class="searchbar right">
+<form method="post" action="">
+<input type="text" id="msgSearchInput" class="txt left" placeholder="输入关键词搜索" name="searchkey" value="">
+
+<input type="submit" value="搜索" id="msgSearchBtn" href="" class="btnGrayS" title="搜索">
+</form>
+</div>
+<div class="clr"></div>
+</div>
+<!--tab start-->
+<div class="tab">
+<ul>
+<li class="current tabli" id="tab0">课程管理</li>
+</ul>
+</div>
+<!--tab end-->
+<div class="cLine">
+<div class="pageNavigator left" style="margin-left:20px"> <a href="{weimicms::U('Blproduct/addproduct',array('name'=>Product))}" title="添加" class="btnGrayS vm bigbtn"><img src="{weimicms::RES}/images/product/add.png" width="16" class="vm">添加课程</a></div>
+<div class="clr"></div>
+</div>
+<div class="msgWrap">
+<form method="post" action="" >
+<input name="delall" type="hidden" value="">
+<input name="wxid" type="hidden" value="">
+<table class="ListProduct" border="0" cellspacing="0" cellpadding="0" width="100%">
+<thead>
+<tr>
+<th width="60">排序</th>
+<th width="180">课程名称名称</th>
+<th width="100">图片</th>
+<th width="200">课程简介</th>
+<th width="100">售卖价格</th>
+<th width="200" class="norightborder">操作</th>
+</tr>
+</thead>
+<tbody>
+<tr></tr>
+<volist name="data" id="vo"> 
+<tr>
+<td><input type="number" style=" width:40px;border:1px solid #c9c9c9;-webkit-border-radius: 3px;-moz-border-radius: 3px;border-radius: 3px;" class="usort" name="sort[{weimicms:$vo.id}]" value="{weimicms:$vo.sort}" /></td>
+<td>{weimicms:$vo.productName}</td>
+<td><a target="_blank" href="{weimicms:$vo.pic}"><img src="{weimicms:$vo.pic}" style="width:50px;" alt="" /></a></td>
+<td>{weimicms:$vo.jianjie}</td>
+<td>{weimicms:$vo.price}</td>
+<td class="norightborder"><a href="{weimicms::U('Blproduct/update',array('id'=>$vo['id'],'token'=>$token,'name'=>'Product'))}">修改</a>   <a href="javascript:drop_confirm('您确定要删除吗?', '{weimicms::U('Blproduct/delete',array('id'=>$vo['id'],'token'=>$token))}');">删除</a></td>
+</tr>
+</volist>
+</tbody>
+</table>
+<if condition="!empty($data)" >
+<input style="margin-left:5px" class="btnGrayS" type="submit" value="确认" />
+</if>
+</form>
+<script>
+   function checkvotethis() {
+var aa=document.getElementsByName('del_id[]');
+var mnum = aa.length;
+j=0;
+for(i=0;i<mnum;i++){
+if(aa[i].checked){
+j++;
+}
+}
+if(j>0) {
+document.getElementById('info').submit();
+} else {
+alert('未选中任何文章或回复！')
+}
+}
+
+   </script> 
+</div>
+<div class="cLine">
+<div class="pageNavigator right">
+<div class="pages">{weimicms:$page}</div>
+</div>
+<div class="clr"></div>
+</div>
+</div>
+<include file="Public:footer"/>

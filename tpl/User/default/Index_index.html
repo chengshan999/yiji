@@ -1,0 +1,63 @@
+<include file="Public:head"/> 
+<link rel="stylesheet" type="text/css" href="./tpl/User/default/common/css/cymain.css" />
+ <link rel="stylesheet" href="{weimicms::RES}/css/diymen/tipswindown.css" type="text/css" media="all" />
+<script type="text/javascript" src="{weimicms::RES}/css/diymen/tipswindown.js"></script>
+<style>
+.ListProduct .td_left{width:130px; text-align:right;color:#000;font-weight:800;border-left: 1px solid #EEE}
+
+.userinfo{font-size:16px;}
+.userinfo span{margin-right:20px;}
+.userinfo span i{text-decoration:underline }
+</style> 
+<div class="content">
+<div class="cLine">
+<div><h1 style="font-size:20px;">系统信息</h1></div>
+<div class="clr"></div>
+</div>
+<div class="msgWrap">
+<p class="userinfo"><span>{weimicms:$userinfo.name}：<i>{weimicms:$Think.session.uname}</i></span>
+<span>本次登录时间：<i>{weimicms:$thisUser.lasttime|date="Y-m-d H:i:s",###}</i></span>
+<span>本次登录IP：<i>{weimicms:$thisUser.lastip}</i></span></p>
+<table class="ListProduct" border="0" cellspacing="0" cellpadding="0" width="100%">
+<tbody>
+	<tr>
+		<td class="td_left">服务器系统：</td>
+		<td>[<php>echo PHP_OS;</php>]<?php echo $_SERVER[SERVER_SOFTWARE];?></td>
+	</tr>
+	<tr>
+		<td class="td_left">数据库版本：</td>
+		<td>MySql:<php>echo mysql_get_server_info();</php></td>
+	</tr>
+	<tr>
+		<td class="td_left">PHP版本：</td>
+		<td>php:<php>echo PHP_VERSION;</php></td>
+	</tr>
+	<tr>
+		<td class="td_left">服务器IP：</td>
+		<td><php>echo $_SERVER['SERVER_ADDR'];</php></td>
+	</tr>
+	<tr>
+		<td class="td_left">端口号：</td>
+		<td><php>echo $_SERVER['SERVER_PORT'];</php></td>
+	</tr>
+	<tr>
+		<td class="td_left">当前网站语言：</td>
+		<td><php>echo getenv("HTTP_ACCEPT_LANGUAGE");</php></td>
+	</tr>
+	<tr>
+		<td class="td_left">被屏蔽的函数：</td>
+		<td><php> echo get_cfg_var("disable_functions")?get_cfg_var("disable_functions"):"无" ; </php></td>
+	</tr>
+	<tr>
+		<td class="td_left">文件上传大小：</td>
+		<td><php> echo ini_get('upload_max_filesize'); </php></td>
+	</tr>
+	<tr>
+		<td class="td_left">官方网站：</td>
+		<td><a href="{weimicms::C('h_site_url')}" class="blue" target="_blank">{weimicms::C('h_site_name')}</a></td>
+	</tr>
+</tbody>
+</table>
+</div>
+</div>
+<include file="Public:footer"/>

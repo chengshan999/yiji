@@ -1,0 +1,57 @@
+<include file="Public:head"/> 
+<link rel="stylesheet" type="text/css" href="./tpl/User/default/common/css/cymain.css" />
+ <link rel="stylesheet" href="{weimicms::RES}/css/diymen/tipswindown.css" type="text/css" media="all" />
+<script type="text/javascript" src="{weimicms::RES}/css/diymen/tipswindown.js"></script> 
+
+<script type="text/javascript">
+ $(document).ready(function() {
+	
+	$("#iframe1").click(function(){
+		tipsWindown("添加账户","iframe:{weimicms::U('Smsc/add',array('token=>$token'))}","300","130","true","","true","leotheme");
+	});
+	$(".iframe2").click(function(){
+		var id=$(this).parents("tr").find("td:first").text();
+		tipsWindown("修改账户","iframe:index.php?g=User&m=Smsc&a=edit&token={weimicms:$token}&id="+id,"300","130","true","","true","leotheme");
+	});
+ });
+ </script>  
+<div class="content">
+<!--tab end-->
+<div class="cLine">
+<div class="pageNavigator left"> <a href="javascript:;" title="添加" id="iframe1" class="btnGrayS vm bigbtn"><img src="{weimicms::RES}/images/product/add.png" width="16" class="vm">添加账户</a></div>
+<div class="clr"></div>
+</div>
+<div class="msgWrap">
+<form method="post" action="" id="info">
+<table class="ListProduct" border="0" cellspacing="0" cellpadding="0" width="100%">
+<thead>
+<tr>
+<th width="40">ID</th>
+<th width="50">账号(序列号)</th>
+<th width="50">密码</th>
+<th width="50">签名</th>
+<th width="50">操作</th>
+</tr>
+</thead>
+<tbody>
+<volist name="list" id="vo">
+	<tr>
+		<td>{weimicms:$vo.id}</td>
+		<td>{weimicms:$vo.user_name}</td>
+		<td>{weimicms:$vo.password}</td>
+		<td>{weimicms:$vo.sign}</td>
+		<td><a href="javascript:void(0)" class="iframe2">修改</a></td>
+	</tr>
+</volist>
+</tbody>
+</table>
+</form>
+</div>
+<div class="cLine">
+<div class="pageNavigator right">
+<div class="pages">{weimicms:$page}</div>
+</div>
+<div class="clr"></div>
+</div>
+</div>
+<include file="Public:footer"/>
